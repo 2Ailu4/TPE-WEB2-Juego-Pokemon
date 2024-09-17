@@ -1,6 +1,6 @@
  
 <p align="center">
-  <img align="center" src="TituloPokemon.gif">
+  <img align="center" src="gifs/TituloPokemon.gif">
 </p>
 # TPE-Web2-Pokemon
 Juego-Pokemon multijugador
@@ -15,9 +15,9 @@ Animate a incursionar en esta nueva aventura, capturalos a todos, entrenando y c
 **¡¡Demuestra que eres el mejor entrenador Pokemon!!**
 
  <p align="center">
-  <img align="center" src="pokemons.gif">
+  <img align="center" src="gifs/pokemons.gif">
 </p>
 
 ## DER 
-![Diagrama de Entidades y Relaciones](/DEREntrenadorPokemon.png)
+![Diagrama de Entidades y Relaciones](/images/DEREntrenadorPokemon.png)
 
