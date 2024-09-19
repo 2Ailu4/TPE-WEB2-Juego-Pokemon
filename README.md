@@ -24,7 +24,7 @@ Animate a incursionar en esta nueva aventura, capturalos a todos, entrenando y c
 
 # :rocket: Tecnologias:
 
-<div class="container">
+<div>
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192108374-8da61ba1-99ec-41d7-80b8-fb2f7c0a4948.png" alt="GitHub" title="GitHub"/></code>
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/192158954-f88b5814-d510-4564-b285-dff7d6400dad.png" alt="HTML" title="HTML"/></code>
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/183898674-75a4a1b1-f960-4ea9-abcb-637170a00a75.png" alt="CSS" title="CSS"/></code>
@@ -33,10 +33,6 @@ Animate a incursionar en esta nueva aventura, capturalos a todos, entrenando y c
 	<code><img width="50" src="https://user-images.githubusercontent.com/25181517/183896128-ec99105a-ec1a-4d85-b08b-1aa1620b2046.png" alt="MySQL" title="MySQL"/></code>
 </div>
 
-<style>.container{
-  display: flex;
-  justify-content: space-evenly;
-}</style>
 
 [websiteM]:https://github.com/MarianoHR07
 
