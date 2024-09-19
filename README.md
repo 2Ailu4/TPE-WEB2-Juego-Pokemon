@@ -34,7 +34,7 @@ Animate a incursionar en esta nueva aventura, capturalos a todos, entrenando y c
 </div>
 
 
-[websiteM]:https://github.com/MarianoHR07
+[websiteM]: https://github.com/MarianoHR07
 
-[websiteA]:https://github.com/2Ailu4
+[websiteA]: https://github.com/2Ailu4
 
