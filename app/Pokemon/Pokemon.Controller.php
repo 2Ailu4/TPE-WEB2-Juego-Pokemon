@@ -11,4 +11,18 @@ class pokemonController{
         $this->pokemon_view = new pokemonView;
     }
 
+    public function homePokemon(){  //solo para probar las funcionalidades
+        $this->pokemon_view->homeView();
+    }
+
+
+    public function listPokemons(){
+        $pokemons = $this->pokemon_model->getPokemons();
+        $this->pokemon_view->listPokemons($pokemons);
+    }
+
+    public function pokemonDetail($idPokemon){
+        $pokemon = $this->pokemon_model->getPokemon($idPokemon);
+        $this->pokemon_view->showPokemon($pokemon);
+    }
 }
