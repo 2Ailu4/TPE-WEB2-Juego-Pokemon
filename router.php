@@ -26,6 +26,16 @@ switch($params[0]){
         $pokemonController = new pokemonController;
         $pokemonController->pokemonDetail($params[1]);
         break;
+    case "add":
+        // $trainerController = new trainerController;      //?????????????????????????
+        // $trainers = $trainerController->getTrainers_ID_name();
+        $pokemonController = new pokemonController;
+        $pokemonController->addPokemon();
+        break;
+    case "insert":
+        $pokemonController = new pokemonController;
+        $pokemonController->insertPokemon();
+        break;
     default:
         echo "404 Page Not Found";
         break;

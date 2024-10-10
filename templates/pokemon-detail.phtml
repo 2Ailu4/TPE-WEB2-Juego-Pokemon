@@ -1,0 +1,18 @@
+
+<div class="card mb-3 text-center" style="max-width: 800px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="https://github.com/2Ailu4/TPE-WEB2-Juego-Pokemon/blob/main/images/pokemons/<?=$pokemon->nombre?>.jpg?raw=true" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"> Nombre del Pokemon: <?=$pokemon->nombre?> </h5>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"> Es de tipo: <?=$pokemon->tipo?> </li>
+            <li class="list-group-item"> Fue capturado el: <?=$pokemon->fecha_captura?> </li>
+            <li class="list-group-item"> Pesa: <?=$pokemon->peso?>kg </li>
+        </ul>
+    </div>
+    </div>
+  </div>
+</div>

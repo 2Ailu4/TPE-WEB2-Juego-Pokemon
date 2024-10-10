@@ -21,8 +21,25 @@ class pokemonController{
         $this->pokemon_view->listPokemons($pokemons);
     }
 
-    public function pokemonDetail($idPokemon){
-        $pokemon = $this->pokemon_model->getPokemon($idPokemon);
+    public function pokemonDetail($nro_Pokedex_Pokemon){
+        $pokemon = $this->pokemon_model->getPokemon($nro_Pokedex_Pokemon);
         $this->pokemon_view->showPokemon($pokemon);
     }
+
+    public function addPokemon(){
+        $trainers = $this->pokemon_model->getTrainers_ID_name(); //return id_entrenador y nombre_entrenador //?????????????????
+        $pokemons = $this->pokemon_model->getPokemons(); //return nro_pokedex y nombre
+
+        $this->pokemon_view->showFormInsertPokemon($pokemons, $trainers);
+    }
+
+    public function insertPokemon(){
+        $idTrainer = $_POST['trainer'];
+        $namePokemon = $_POST['pokemon'];
+        $pokemon = $this->pokemon_model->getNroPokedexTypeByName($namePokemon);
+        $weight = $_POST['weightPokemon'];
+
+        $id_New_Pokemon = $this->pokemon_model->insertPokemon($pokemon->nro_pokedex, $namePokemon, $pokemon->tipo, $weight, $idTrainer);
+    }
+
 }
