@@ -1,5 +1,5 @@
 <?php
-
+require_once './templates/header.phtml';
 class pokemonView{
     
     public function homeView(){
@@ -10,28 +10,22 @@ class pokemonView{
         ?> <a href="<?=BASE_URL.$destination?>">Volver</a> <?php
     }
 
-    public function listPokemons($pokemons){ 
-        require_once './templates/header.phtml'; ?>
+    public function listPokemons($pokemons){ ?>
         <h1>Los pokemons que se puede encontrar son:</h1><?php
         foreach($pokemons as $pokemon){ 
             require './templates/pokemon-list.phtml';
         }
         $this->return("home");
-        require_once './templates/footer.phtml';
     }
 
     public function showPokemon($pokemon){ 
-        require_once './templates/header.phtml'; 
         require_once './templates/pokemon-detail.phtml';
         $this->return("listPokemons");
-        require_once './templates/footer.phtml';
     }
 
     public function showFormInsertPokemon($pokemons, $trainers){
-        require_once './templates/header.phtml'; 
         require_once './templates/forms/insert-pokemon.phtml';
-        require_once './templates/footer.phtml';
     }
 
-
 }
+require_once './templates/footer.phtml';
