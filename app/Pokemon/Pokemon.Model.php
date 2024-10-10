@@ -61,4 +61,16 @@ class pokemonModel{
         $id = $this->db->lastInsertId();
         return $id;
     }
+
+    public function releasePokemon($id_pokemon){
+        $query = $this->db->prepare('SELECT FK_id_entrenador FROM pokemon WHERE id=?');
+        $query->execute([$id_pokemon]);
+        $trainer = $query->fetch(PDO::FETCH_OBJ);
+
+        $query = $this->db->prepare('DELETE FROM pokemon WHERE id=?');
+        $query->execute([$id_pokemon]);
+
+        return $trainer;
+    }
+
 }

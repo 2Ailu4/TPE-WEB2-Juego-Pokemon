@@ -42,4 +42,8 @@ class pokemonController{
         $id_New_Pokemon = $this->pokemon_model->insertPokemon($pokemon->nro_pokedex, $namePokemon, $pokemon->tipo, $weight, $idTrainer);
     }
 
+    public function releasePokemon($id_Pokemon){
+        $id_Trainer = $this->pokemon_model->releasePokemon($id_Pokemon);
+        header('Location: ' . BASE_URL . "trainer-pokemons/" . $id_Trainer->FK_id_entrenador);
+    }
 }
