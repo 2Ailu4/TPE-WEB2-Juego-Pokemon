@@ -1,0 +1,25 @@
+<!-- Main container para perfil del Entrenador ( Tarjeta de tipo Bloque con Navegabilidad ) -->
+ <!-- Card-Header with navigability  -->
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="<?=$url['trainer-link']?>">Entrenador: <?=$trainer['nombre_entrenador']?> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?=$url['trainer-pokemons']?>">Pokemons</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="<?=$url['trainer-update']?>">Actualizar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="<?=$url['trainer-delete']?>">Eliminar</a>
+      </li>
+    </ul>
+  </div>
+  <!-- $template : Ruta del template requerido -->
+   <!-- example:
+             main = [ Card | Template | ... | OtherComponents ] -->
+  <?php require_once $template?>
+
+</div>

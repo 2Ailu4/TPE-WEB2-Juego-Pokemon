@@ -1,0 +1,5 @@
+.galery-container {
+    display:flex; 
+    flex-direction: row; 
+    padding: 1% 5% 1% 5%;
+}

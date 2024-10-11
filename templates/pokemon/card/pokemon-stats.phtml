@@ -1,0 +1,20 @@
+<!-- Card de Estadisticas del Pokemon -->
+  <div class="card" style="width: 18rem;">
+    <img src="https://github.com/2Ailu4/TPE-WEB2-Juego-Pokemon/blob/main/images/pokemons/<?=$pokemon['nombre']?>.jpg?raw=true" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Este Pokemon fue capturado por <?=$trainer['nombre_entrenador']?> en la <br>Fecha: <?=$pokemon['fecha_captura']?> </h5>
+      <p class="card-text"></p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Numero Pokedex: <?=$pokemon['nro_pokedex']?> </li>
+      <li class="list-group-item">Nombre: <?=$pokemon['nombre']?></li>
+      <li class="list-group-item">Tipo: <?=$pokemon['tipo']?></li>
+      <li class="list-group-item">Peso: <?=$pokemon['peso']?> kg</li>
+    </ul>
+    <div class="card-body">
+      <a href="<?=$url['update']  ?>" class="card-link ">Editar</a>
+      <a href="<?=$url['set-free']?>" class="card-link ">Liberar</a>
+    </div>
+  </div>
+
+

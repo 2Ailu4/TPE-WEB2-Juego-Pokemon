@@ -1,0 +1,10 @@
+<!-- Cards-Gallery de los pokemons de un Entrenador -->
+<div class="galery-container">
+     
+    <?php foreach($pokemons as $pokemon){
+            $url['set-free'] = $set_free_pokemon."/".$pokemon['id'];
+            $url['update']  = $update_pokemon."/".$pokemon['id'];
+            require './templates/pokemon/card/pokemon-stats.phtml';
+    }?>
+    
+</div> 
