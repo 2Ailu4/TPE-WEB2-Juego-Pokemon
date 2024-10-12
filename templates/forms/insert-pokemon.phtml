@@ -1,0 +1,33 @@
+<form action="insert-pokemon" method="POST">
+
+    <div class="row mb-3">  
+        <label for="pokemon_name" class="col-sm-2 col-form-label">Nombre del Pokemon</label>
+        <div class="col-sm-10">
+            <select name="pokemon" class="form-select" id="pokemon_name">
+                <?php foreach($pokemons as $pokemon){ ?>
+                    <option value="<?=$pokemon->nombre?>"> <?=$pokemon->nombre?> </option> <?php
+                } ?>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">  
+        <label for="weightPokemon" class="col-sm-2 col-form-label">Peso del pokemon</label>
+        <div class="col-sm-10">
+            <input name="weightPokemon" type="number" class="form-control" id="weightPokemon" placeholder="Peso en kg" aria-label="Peso en kg" aria-describedby="addon-wrapping">
+        </div>
+    </div>
+
+    <div class="row mb-3">  
+        <label for="trainer_name" class="col-sm-2 col-form-label">Nombre del Entenador</label>
+        <div class="col-sm-10">
+            <select name="trainer" class="form-select" id="trainer_name">
+                <?php foreach($trainers as $trainer){ ?>
+                    <option value="<?=$trainer->id_entrenador?>"> <?=$trainer->nombre_entrenador?> </option> <?php
+                } ?>
+            </select>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Agregar</button>
+</form>
