@@ -9,6 +9,7 @@ if(!empty($_GET['action'])){
 }else{
     // $action = "home";
     $action = "trainer-list";
+    // $action = "register-trainer";
     
 }
 
@@ -65,6 +66,41 @@ switch($params[0]){
         $trainerController->trainerPokemons($params[1]);
         break;
 
+    case "register-trainer":
+        sessionAuthMiddleware($res);
+        $trainerController = new trainerController($res);
+        $trainerController->showForm_INSERT();
+        break;
+    case "insert-trainer":
+        sessionAuthMiddleware($res);
+        $trainerController = new trainerController($res);
+        $trainerController->insertTrainer();
+        break;
+
+    case "modify-trainer":
+        sessionAuthMiddleware($res);
+        $trainerController = new trainerController($res);
+        $trainerController->showForm_UPDATE($params[1]);
+        break;
+        
+    case "update-trainer":
+        sessionAuthMiddleware($res);
+        $trainerController = new trainerController();
+        //var_dump($params);
+        $trainerController->updateTrainer($params[1]);
+        break;
+
+    case "delete-trainer":
+        sessionAuthMiddleware($res);
+        $trainerController = new trainerController();
+        $trainerController->deleteTrainer($params[1]);
+        break;
+
+    case "close-session":
+        sessionAuthMiddleware($res);
+        $userController = new userController();
+        $userController->closeSession();
+        break;
     default:
         echo "404 Page Not Found";
         break;

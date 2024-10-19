@@ -6,7 +6,9 @@ class pokemonController{
     private $pokemon_model;
     private $pokemon_view;
 
-    public function __construct(){
+    public function __construct($res){
+        if(!isset($res)){$this->pokemon_view = new pokemonView();}
+         else{$this->pokemon_view = new pokemonView($res->user);}
         $this->pokemon_model = new pokemonModel;
         $this->pokemon_view = new pokemonView;
     }
@@ -39,11 +41,31 @@ class pokemonController{
         $pokemon = $this->pokemon_model->getNroPokedexTypeByName($namePokemon);
         $weight = $_POST['weightPokemon'];
 
-        $id_New_Pokemon = $this->pokemon_model->insertPokemon($pokemon->nro_pokedex, $namePokemon, $pokemon->tipo, $weight, $idTrainer);
+        $pokemon_existent =  'verificar en db si existe ';
+        if (!$pokemon_existent ){
+            if ($this->imageUploaded()) {
+                $imgTemp = $_FILES['input_name']['tmp_name']; 
+            }else { 
+                $this->pokemon_view->showMessage('Error: Es necesario ingresar una imagen para agregar nuevas especies de Pokemons');
+                die(); 
+            } 
+        }else{$imgTemp = $pokemon_existent -> imagen; }// agarro la imagen de el pokemon}
+        
+        // toda la logica ACTUALIZADA de insertar  
+        
+        $id_New_Pokemon = $this->pokemon_model->insertPokemon($pokemon->nro_pokedex, $namePokemon, $pokemon->tipo, $weight, $idTrainer, $imgTemp);
+        return $id_New_Pokemon;
     }
 
     public function releasePokemon($id_Pokemon){
         $id_Trainer = $this->pokemon_model->releasePokemon($id_Pokemon);
         header('Location: ' . BASE_URL . "trainer-pokemons/" . $id_Trainer->FK_id_entrenador);
     }
+
+    private function imageUploaded(){
+        return $_FILES['input_name']['type'] == "image/jpg"
+            || $_FILES['input_name']['type'] == "image/jpeg" 
+            || $_FILES['input_name']['type'] == "image/png";      
+    }
+        
 }

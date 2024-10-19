@@ -1,5 +1,14 @@
 .galery-container {
-    display:flex; 
-    flex-direction: row; 
+    /* width: 500px;  */
+    /* !important; */
+    display:flex ; 
+    /* flex-direction: row;  */
+    /* flex-wrap: wrap; */
     padding: 1% 5% 1% 5%;
+    /* height: 70px; */
+}
+
+.chiquita {
+    width: 50%;
+    height: 50%;
 }

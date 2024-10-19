@@ -1,5 +1,5 @@
 <?php
-require_once './templates/header.phtml';
+require_once './templates/layout/header.phtml';
 class pokemonView{
     
     public function homeView(){
@@ -28,4 +28,4 @@ class pokemonView{
     }
 
 }
-require_once './templates/footer.phtml';
+//require_once './templates/layout/footer.phtml';

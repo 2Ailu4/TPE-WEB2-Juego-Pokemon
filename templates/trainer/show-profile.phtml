@@ -4,17 +4,26 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href="<?=$url['trainer-link']?>">Entrenador: <?=$trainer['nombre_entrenador']?> </a>
+        <a class="nav-link active" aria-current="true" href="<?=$url['trainer-link']?>">Entrenador: <?=htmlspecialchars($trainer['nombre_entrenador'])?> </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?=$url['trainer-pokemons']?>">Pokemons</a>
       </li>
+
+      <?php if(isset($url['trainer-update'])){ ?>
+      
       <li class="nav-item">
-        <a class="nav-link disabled" href="<?=$url['trainer-update']?>">Actualizar</a>
+        <a class="nav-link" href="<?=$url['trainer-update']?>">Actualizar</a>
       </li>
+
+      <?php }
+      if(isset($url['trainer-delete'])){ ?>
+
       <li class="nav-item">
-        <a class="nav-link disabled" href="<?=$url['trainer-delete']?>">Eliminar</a>
+        <a href="#" class="nav-link" onclick="confirmLiberation('<?=$url['trainer-delete']?>')">Eliminar entrenador</a>
       </li>
+
+      <?php } ?>
     </ul>
   </div>
   <!-- $template : Ruta del template requerido -->
@@ -23,3 +32,19 @@
   <?php require_once $template?>
 
 </div>
+
+
+<!-- 
+  Editar modify-pokemon/id_Pokemon  Liberar -> delete-pokemon/id -->
+  
+
+<script>
+function confirmLiberation(url) {
+    // Mostrar el mensaje de confirmación
+    const confirmation = confirm("Si continuas con la operacion, se eliminara completamente tu usuario, sin posibilidad de recuperarlo. ¿Deseas continuar?");
+    if (confirmation) {
+        // Si el usuario confirma, redirigir a la URL para liberar el Pokémon
+        window.location.href = url;
+    }
+}
+</script>
