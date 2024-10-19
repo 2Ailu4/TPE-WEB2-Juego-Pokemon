@@ -1,0 +1,49 @@
+
+.ajustarImg{
+    text-align: center;
+    width: auto;
+}
+
+.centrar-img{
+    display: flex;
+}
+
+.ancho-login{
+    width: 100px;
+}
+
+.imagen-home {
+    width: 100%;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    overflow: hidden; /* Para evitar el scroll */
+    margin-bottom: 0;
+}
+
+.imagen-home img, .header-layout{
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* Mantiene la relación de aspecto */
+}
+
+
+.tamaño-imagen{
+    width: 10%;
+}
+
+.aumentar-img:hover{
+    transition: transform 0.3s ease;
+    transform: scale(1.4);
+}
+
+.redireccion{
+    margin-top: 50px;
+}
+
+.chiquita{
+    width: 50px;
+}
+
+.tipografia{
+    font-family: "Oswald", sans-serif;
+}
+
