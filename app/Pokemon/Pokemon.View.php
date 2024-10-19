@@ -1,5 +1,4 @@
 <?php
-
 class pokemonView{
     private $user = NULL; 
 

@@ -1,0 +1,58 @@
+
+
+<form action='<?=$options['action_form']?>' method="POST"> <?php 
+
+    if(!isset($label['numberPokedex'])){ ?>
+        <div class="row mb-3">  
+            <label for="numberPokedex" class="col-sm-2 col-form-label"> Numero de Pokedex </label>
+            <div class="col-sm-10">
+                <input name="numberPokedex" type="number" class="form-control" id="numberPokedex" placeholder="<?=$field["number-pokedex-pokemon"]?>" aria-label="pokedex" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php } 
+
+    if(!isset($label['pokemon'])){ ?>
+        <div class="row mb-3">  
+            <label for="pokemon" class="col-sm-2 col-form-label"> Nombre del Pokemon </label>
+            <div class="col-sm-10">
+                <input name="pokemon" type="text" class="form-control" id="pokemon" placeholder="<?=$field["name-pokemon"]?>" aria-label="Nombre" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php } 
+
+    if(!isset($label['typePokemon'])){ ?>
+        <div class="row mb-3">  
+            <label for="typePokemon" class="col-sm-2 col-form-label"> Tipo del Pokemon </label>
+            <div class="col-sm-10">
+                <input name="typePokemon" type="text" class="form-control" id="typePokemon" placeholder="<?=$field["type-pokemon"]?>" aria-label="Tipo/s" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php } 
+
+    if(!isset($label['captureDateUpdate'])){ ?>
+        <div class="row mb-3">  
+            <label for="captureDateUpdate" class="col-sm-2 col-form-label"> Fecha de Captura </label>
+            <div class="col-sm-10">
+                <input value="<?=$field["capture-date-pokemon"]?>" name="captureDateUpdate" type="datetime" class="form-control" id="captureDateUpdate" aria-label="YYYY-MM-DD" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php } 
+
+    if(!isset($label['weightPokemon'])){ ?>
+        <div class="row mb-3">  
+            <label for="weightPokemon" class="col-sm-2 col-form-label"> Peso del pokemon </label>
+            <div class="col-sm-10">
+                <input name="weightPokemon" type="number" class="form-control" id="weightPokemon" placeholder="<?=$field["weight-pokemon"]?>" aria-label="Peso en kg" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php }
+
+    if(!isset($label['trainerPokemon'])){ 
+        require 'header-select.phtml'; ?>
+        <option value="NULL">NULL</option> <?php 
+        require 'options-select-trainer.phtml';
+        require 'footer-select.phtml'; 
+    } ?>
+
+    <button type="submit" class="btn btn-primary">Aceptar</button>
+</form>

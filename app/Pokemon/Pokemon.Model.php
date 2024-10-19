@@ -85,15 +85,29 @@ class pokemonModel{
     }
     
 
-    public function insertPokemon($nro_pokedex, $nombre, $tipo, $peso, $entrenador=NULL){
-        $query = $this->db->prepare('INSERT INTO pokemon(nro_pokedex, nombre, tipo, peso, FK_id_entrenador) 
+    // public function insertPokemon($nro_pokedex, $nombre, $tipo, $peso, $entrenador=NULL){
+    //     $query = $this->db->prepare('INSERT INTO pokemon(nro_pokedex, nombre, tipo, peso, FK_id_entrenador) 
+    //                                         VALUES (?, ?, ?, ?, ?)');
+    //     $query->execute([$nro_pokedex, $nombre, $tipo, $peso, $entrenador,$imgPath]);
+
+    //     $id = $this->db->lastInsertId();
+    //     return $id;
+    // }
+
+    public function insertPokemon($nro_pokedex, $nombre, $tipo, $peso, $imgTemp, $entrenador=null){
+        $imgPath = NULL; 
+        // carga de imagen
+        if ($imgTemp){
+            $pathImg = $this->uploadImage($imgTemp,$nombre);
+            $updateFields['imagen']=$imgPath;
+        } 
+        $query = $this->db->prepare('INSERT INTO pokemon(nro_pokedex, nombre, tipo, peso, FK_id_entrenador, imagen) 
                                             VALUES (?, ?, ?, ?, ?)');
-        $query->execute([$nro_pokedex, $nombre, $tipo, $peso, $entrenador]);
+        $query->execute([$nro_pokedex, $nombre, $tipo, $peso, $entrenador,$imgPath]);
 
         $id = $this->db->lastInsertId();
         return $id;
     }
-
 
     // .....Eliminacion......
     public function getFkTrainerByPokemon($id_Pokemon){
@@ -107,9 +121,47 @@ class pokemonModel{
     public function releasePokemon($id_Pokemon){
         $query = $this->db->prepare('DELETE FROM pokemon WHERE id=?');
         $query->execute([$id_Pokemon]);
-
         return $this->getFkTrainerByPokemon($id_Pokemon);
     }
+    
+    private function uploadImage($imgTemp, $nombre_pokemon, $update = false, $relativePath = "images/pokemons/"   ) {
+ 
+        $extension = strtolower(pathinfo($nombre_pokemon, PATHINFO_EXTENSION));
+        $filePath = $relativePath . $nombre_pokemon . "." . $extension;
+        
+        if($update){
+            // elimina la imagen de pokemon 
+            $this->deleteImage($filePath); 
+            // setea la nueva imagen para dicho pokemon
+            if (!move_uploaded_file($imgTemp, $filePath)) {
+                throw new Exception("Error al mover el archivo subido.");
+            }
+        }
+
+        // Para depurar
+        ?><br><?php
+        var_dump('filepath:  ', $filePath);
+        ?><br><?php
+        var_dump('temporal:  ', $nombre_pokemon);
+        ?><br><?php
+        var_dump('pathinfo:  ', pathinfo($nombre_pokemon, PATHINFO_EXTENSION));
+    
+        return $filePath;
+    }
+ 
+    private function deleteImage($filePath) {
+        if (file_exists($filePath)) {
+            // Intenta eliminar el archivo
+            if (unlink($filePath)) {
+                return "Imagen eliminada con éxito.";
+            } else {
+                throw new Exception("Error al eliminar la imagen.");
+            }
+        } else {
+            throw new Exception("El archivo no existe: " . $filePath);
+        }
+    }
+
 
 
     // .....Actualizacion......

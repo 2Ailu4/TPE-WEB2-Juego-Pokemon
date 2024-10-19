@@ -1,0 +1,8 @@
+<!-- Lista de entrenadores Pokemon -->
+<?php
+foreach($trainers as $trainer){
+            $url = $action."/".$trainer['id_entrenador'];
+            $entrenador = $trainer;
+            require './templates/trainer/card/presentation.phtml';
+        } 
+?>

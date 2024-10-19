@@ -45,4 +45,8 @@ class userController{
         }
         
     }
+
+    public function closeSession(){
+        
+    }
 }

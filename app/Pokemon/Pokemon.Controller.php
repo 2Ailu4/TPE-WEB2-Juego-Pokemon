@@ -70,7 +70,24 @@ class pokemonController{
         header('Location: ' . BASE_URL . "listPokemons");
     }
 
+    public function imageUpdate() {   
+        $pokemon_existent =  'verificar en db si existe ';
+            if (!$pokemon_existent ){
+                if ($this->imageUploaded()) {
+                    $imgTemp = $_FILES['input_name']['tmp_name']; 
+                }else { 
+                    $this->pokemon_view->showMessage('Error: Es necesario ingresar una imagen para agregar nuevas especies de Pokemons');
+                    die(); 
+                } 
+            }else{$imgTemp = $pokemon_existent -> imagen; }// agarro la imagen de el pokemon}
+            
+        // toda la logica ACTUALIZADA de insertar  
+        
+        $id_New_Pokemon = $this->pokemon_model->insertPokemon($pokemon->nro_pokedex, $namePokemon, $pokemon->tipo, $weight, $idTrainer, $imgTemp);
+        return $id_New_Pokemon;
+    }
 
+    
     // .....Eliminacion......
     public function releasePokemon($id_Pokemon){
         $id_Trainer = $this->pokemon_model->releasePokemon($id_Pokemon);
@@ -120,4 +137,10 @@ class pokemonController{
     }
  
 
+    private function imageUploaded(){
+        return $_FILES['input_name']['type'] == "image/jpg"
+            || $_FILES['input_name']['type'] == "image/jpeg" 
+            || $_FILES['input_name']['type'] == "image/png";      
+    }
+        
 }
