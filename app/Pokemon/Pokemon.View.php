@@ -41,7 +41,7 @@ class pokemonView{
                     'weight-pokemon'=>'Peso en kg'];
         $template= './templates/pokemon/forms/info-pokemon.phtml';
         $imgPokeball = "./images/pokeball.png";
-        $imgHeaderLauoutForm = "./images/header-layout.png";
+        $imgHeaderLayoutForm = "./images/header-layout.png";
         $imgFooterLayoutForm = "./images/footer-layout.png";
         require_once 'templates/layout/index.phtml';
     }
@@ -61,7 +61,7 @@ class pokemonView{
                     'weight-pokemon'=>$weight_pokemon];
         $template = './templates/pokemon/forms/info-pokemon.phtml';
         $imgPokeball = "../images/pokeball.png";
-        $imgHeaderLauoutForm = "../images/header-layout.png";
+        $imgHeaderLayoutForm = "../images/header-layout.png";
         $imgFooterLayoutForm = "../images/footer-layout.png";
         require_once 'templates/layout/index.phtml';
     }

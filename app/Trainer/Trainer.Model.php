@@ -40,22 +40,16 @@ class trainerModel{
         return $trainer;
     }
     public function getTrainer_Name($id_trainer){
-        $query = $this->db->prepare('SELECT nombre_entrenador FROM entrenadorpokemon WHERE id_entrenador = :id_entrenador');
+        $query = $this->db->prepare('SELECT nombre_entrenador, imagen FROM entrenadorpokemon WHERE id_entrenador = :id_entrenador');
         $query->execute([":id_entrenador"=>$id_trainer]);
 
         $trainer = $query->fetch(PDO::FETCH_ASSOC);
         return $trainer;
     }
 
-    // public function getTrainerPokemons($id_trainer){
-    //     $query = $this->db->prepare('SELECT nro_pokedex, nombre, tipo, fecha_captura, peso FROM pokemon WHERE FK_id_entrenador = :FK_id_entrenador');
-    //     $query->execute([':FK_id_entrenador'=>$id_trainer]);
-
-    //     $trainer = $query->fetchAll(PDO::FETCH_ASSOC);
-    //     return $trainer;
-    // }
+    
     public function getTrainerPokemons($id_trainer){
-        $query = $this->db->prepare('SELECT id, nro_pokedex, nombre, tipo, fecha_captura, peso FROM pokemon JOIN entrenadorpokemon on (FK_id_entrenador =id_entrenador) WHERE id_entrenador = :id_entrenador');
+        $query = $this->db->prepare('SELECT id, nro_pokedex, nombre, tipo, fecha_captura, peso , imagen_pokemon FROM pokemon JOIN entrenadorpokemon on (FK_id_entrenador =id_entrenador) WHERE id_entrenador = :id_entrenador');
         $query->execute([':id_entrenador'=>$id_trainer]);
 
         $trainer = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -63,20 +57,24 @@ class trainerModel{
     }
     
     
-    public function insertTrainer($trainer = []){
-        var_dump($trainer);
-        $query = $this->db->prepare('INSERT INTO entrenadorpokemon(nombre_entrenador, ciudad_origen, nivel_entrenador, cant_medallas) 
-                                            VALUES (?, ?, ?, ?)');
-        $query -> execute([$trainer['nombre_entrenador'], $trainer['ciudad_origen'], $trainer['nivel_entrenador'], $trainer['cant_medallas']]);
+    public function insertTrainer($trainer = [],$imagen=null){
+        $pathImg=null;
+         
+        if ($imagen){
+            $pathImg = $this->uploadImage($imagen);
+            $trainer['imagen']=$pathImg;
+        }   
+        $query = $this->db->prepare('INSERT INTO entrenadorpokemon(nombre_entrenador, ciudad_origen, nivel_entrenador, cant_medallas, imagen) 
+                                            VALUES (?, ?, ?, ?, ?)');
+        $query -> execute([$trainer['nombre_entrenador'], $trainer['ciudad_origen'], $trainer['nivel_entrenador'], $trainer['cant_medallas'],$trainer['imagen']]);
+         
         $trainerID = $this->db->lastInsertId();
         return $trainerID;
     }
 
     public function deleteTrainer($trainerID){
         $hasPokemons = $this->getTrainerPokemons($trainerID);
-        var_dump($hasPokemons);
-        //if (isset($hasPokemons)) {$this->releasePokemons($trainerID);}
-        if ($hasPokemons) {$this->releasePokemons($trainerID);} // creo q va este 
+        if ($hasPokemons) {$this->releasePokemons($trainerID);} 
         
         $query = $this->db->prepare('DELETE FROM entrenadorpokemon WHERE id_entrenador=?');
         $query->execute([$trainerID]);
@@ -87,10 +85,7 @@ class trainerModel{
          
         if ($imagen){
             $pathImg = $this->uploadImage($imagen);
-            //$pathImg = $this->uploadImage($imagen); // creo la ruta a la imagen y guardo la imagen con el nombre de la misma y un id 
             $updateFields['imagen']=$pathImg;
-            ?><br><?php
-            var_dump("esta bien params ? ",$updateFields);
         }   
         $update='';
         $params=[];
@@ -158,41 +153,8 @@ class trainerModel{
             throw new Exception("Error al mover el archivo subido.");
         }
         
-        // Para depuración
-        ?><br><?php
-        var_dump('filepath:  ', $filePath);
-        ?><br><?php
-        var_dump('temporal:  ', $nombre_entrenador);
-        ?><br><?php
-        var_dump('pathinfo:  ', pathinfo($nombre_entrenador, PATHINFO_EXTENSION));
-    
         return $filePath;
     } 
-
-    private function uploadImagePokemon($imgTemp, $nombre_pokemon, $update = false) {
- 
-        $extension = strtolower(pathinfo($nombre_pokemon, PATHINFO_EXTENSION));
-        $filePath = "images/pokemons/" . $nombre_pokemon . "." . $extension;
-        
-        if($update){
-            // elimina la imagen de pokemon 
-            $this->deleteImage($filePath); 
-            // setea la nueva imagen para dicho pokemon
-            if (!move_uploaded_file($imgTemp, $filePath)) {
-                throw new Exception("Error al mover el archivo subido.");
-            }
-        }
-
-        // Para depuración
-        ?><br><?php
-        var_dump('filepath:  ', $filePath);
-        ?><br><?php
-        var_dump('temporal:  ', $nombre_pokemon);
-        ?><br><?php
-        var_dump('pathinfo:  ', pathinfo($nombre_pokemon, PATHINFO_EXTENSION));
-    
-        return $filePath;
-    }
 
     private function deleteImage($filePath) {
         if (file_exists($filePath)) {

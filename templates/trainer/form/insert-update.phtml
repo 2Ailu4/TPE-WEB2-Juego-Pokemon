@@ -1,3 +1,5 @@
+<img src="<?=$imgHeaderLayoutForm?>" class="rounded header-layout" alt="">
+
 <form action='<?=BASE_URL.$action['action_form']?>' method="POST" enctype="multipart/form-data"> <?php 
 
     if(!isset($label['nombre_entrenador'])){ ?>
@@ -37,14 +39,13 @@
     <?php } ?>
 
     <div class="row mb-3">  
-            <label for="cant_medallas" class="col-sm-2 col-form-label"> Cargar Imagen </label>
+            <label for="entrenador_pokemon" class="col-sm-2 col-form-label"> Cargar Imagen </label>
             <div class="col-sm-10">
                 <input type="file" name="input_name" id="imageToUpload">
             </div>
     </div>
-    
-     
-    
 
     <button type="submit" class="btn btn-primary">Aceptar</button>
 </form>
+
+<img src="<?=$imgFooterLayoutForm?>" class="rounded header-layout" alt="">

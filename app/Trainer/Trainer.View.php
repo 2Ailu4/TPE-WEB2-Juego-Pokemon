@@ -6,10 +6,8 @@
     2) La razon por la cual algunas de las funciones no tienen footer, es para que puedan ser reutilizadas como componentes para un layout en especifico 
 */
 
-require_once './templates/layout/header.phtml';
-// require_once './TPE-WEB2-Juego-Pokemon/templates/layout/header.phtml';
 class trainerView{
-    private $user;
+    private $user =null;
 
     private $URL_home;
 
@@ -22,10 +20,9 @@ class trainerView{
     private $PARTIAL_URL_DELETE_pokemon_trainer;
     private $PARTIAL_URL_UPDATE_pokemon_trainer;
 
-    //public function __construct($user = null){
     public function __construct($user = null){
         $this->user = $user;
-
+        
         $this->URL_home = BASE_URL."home";
         //TRAINERS
         $this->URL_trainers = BASE_URL."trainer-list";
@@ -35,7 +32,7 @@ class trainerView{
         //POKEMONS DEL ENTRENADOR
         $this->PARTIAL_URL_trainer_pokemons =BASE_URL."trainer-pokemons";
         $this->PARTIAL_URL_DELETE_pokemon_trainer = BASE_URL."delete-pokemon";
-        $this->PARTIAL_URL_UPDATE_pokemon_trainer = BASE_URL."update-pokemon";
+        $this->PARTIAL_URL_UPDATE_pokemon_trainer = BASE_URL."modify-pokemon";
     }
     public function return($destination, $message){
         ?> <a href="<?=BASE_URL.$destination?>"> <?=$message?> </a> <?php
@@ -45,8 +42,10 @@ class trainerView{
 //:::::::::::::::::::::::::::::::::::::: [ COMPONENTS ] ::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
     public function showTrainers($trainers){
+        $imgPokeball = "./images/pokeball.png";
         $action = $this->PARTIAL_URL_trainer;   
-        require './templates/trainer/trainer-list.phtml';
+        $template= './templates/trainer/trainer-list.phtml';
+        require_once './templates/layout/index.phtml';
     }
  
     public function showTrainerPokemon_Card($pokemon, $trainer){ 
@@ -55,62 +54,62 @@ class trainerView{
     }
 
     public function showForm_INSERT(){
+        $imgPokeball = "./images/pokeball.png";
+        $imgHeaderLayoutForm="./images/header-layout.png";
+        $imgFooterLayoutForm = "./images/footer-layout.png";
         $action  = ['action_form'=>'insert-trainer'];
         $label   = $this->__get_form_labels();
         $trainer = $this->__get_trainer_placeholders();
-        //$label= [];
-        //$trainer=['nombre_entrenador'=>'nombre' , 'ciudad_origen'=>'ciudad' , 'nivel_entrenador'=>'nivel','cant_medallas'=>'cantidad'];
-        require './templates/trainer/form/insert-update.phtml'; 
-        require_once './templates/layout/footer.phtml';
+        $template= './templates/trainer/form/insert-update.phtml'; 
+        require_once './templates/layout/index.phtml';  
     }
 
     public function showForm_UPDATE($trainer){
-        //var_dump($action);
-        //$label=[];
-        // if(!$admin){
-        //     $label=['id_entrenador'=>'hide', 'nivel_entrenador'=>'hide', 'cant_medallas'=>'hide'];
-        // }
+        $imgPokeball = "./images/pokeball.png";
+        $imgHeaderLayoutForm="../images/header-layout.png";
+        $imgFooterLayoutForm = "../images/footer-layout.png";
         $action=['action_form'=>'update-trainer/'.$trainer['id_entrenador']];
         $label = $this->__get_form_labels();
-        require './templates/trainer/form/insert-update.phtml'; 
-        require_once './templates/layout/footer.phtml';
+        $template = './templates/trainer/form/insert-update.phtml'; 
+        require_once './templates/layout/index.phtml';
     }
 
 //:::::::::::::::::::::::::::::::::::::: [ LAYOUTS ] ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
 
     public function showTrainerPokemons($pokemons, $trainer=[]){
-    
+        
         $set_free_pokemon = $this->PARTIAL_URL_DELETE_pokemon_trainer;
         $update_pokemon = $this->PARTIAL_URL_UPDATE_pokemon_trainer;
-        $template = './templates/pokemon/gallery/pokemon-stats.phtml';
-        $url = $this->__get_Profile_Links($trainer);
-            require_once './templates/trainer/show-profile.phtml';  
-
-        require_once './templates/layout/footer.phtml';
+        $pokemonsTemplate = './templates/pokemon/gallery/pokemon-stats.phtml';
+        $url = $this->__get_Profile_Links($trainer); 
+        $template= './templates/trainer/show-profile.phtml';  
+        require_once './templates/layout/index.phtml'; 
     }
    
     public function showTrainer($trainer){ 
         $url = $this->__get_Profile_Links($trainer);
         $trainer_ID = "/".$trainer['id_entrenador'];
-        
-        $template = './templates/trainer/card/profile.phtml';  //Tarjeta con informacion del entrenador
-        require_once './templates/trainer/show-profile.phtml'; // Perfil del entrenador  
+        $trainerTemplate='./templates/trainer/card/profile.phtml';
+          
+        $template=  './templates/trainer/show-profile.phtml'; // Perfil del entrenador  
 
-        require_once './templates/layout/footer.phtml';
+         require_once './templates/layout/index.phtml';
     }
 
+    
     public function showTrainer_UPDATE($trainer){ 
-
+       
         $action=['action_form'=>'update-trainer/'.$trainer['id_entrenador']];
         $label = $this->__get_form_labels();
-        $template = './templates/trainer/form/insert-update.phtml'; //FORM
+        $template_profile = './templates/trainer/form/insert-update.phtml'; //FORM
        
         $url = $this->__get_Profile_Links($trainer);
         $trainer_ID = "/".$trainer['id_entrenador'];
-           
-        require_once './templates/trainer/show-profile.phtml'; // Perfil del entrenador  
+        $template=   './templates/trainer/show-profile.phtml';
 
-        require_once './templates/layout/footer.phtml';
+        require_once './templates/layout/index.phtml';
+
+        
     }
 
 //:::::::::::::::::::::::::::::::::::::: [ PRIVADAS ] :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -124,6 +123,7 @@ class trainerView{
             'trainers'        => $this->URL_trainers
         ];
         if($this->user){
+            
             $links['trainer-update']  = $this->PARTIAL_URL_UPDATE_trainer . $trainer_ID;
             $links['trainer-delete']  = $this->PARTIAL_URL_DELETE_trainer . $trainer_ID;   
         }
@@ -140,10 +140,7 @@ class trainerView{
     }
     private function __get_trainer_placeholders(){
         $trainer=['nombre_entrenador'=>'nombre' , 'ciudad_origen'=>'ciudad' , 'nivel_entrenador'=>'nivel','cant_medallas'=>'cantidad'];
-        // $label = [];
-        // if( !($this->user) ){
-        //     $label=['id_entrenador'=>'hide', 'nivel_entrenador'=>'hide', 'cant_medallas'=>'hide'];
-        // }
+
         return $trainer;
     }
    

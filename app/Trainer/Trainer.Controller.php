@@ -6,9 +6,11 @@ class trainerController{
     private $trainer_model;
     private $trainer_view;
 
-    public function __construct(){
+    public function __construct($res=null){
         $this->trainer_model = new trainerModel;
-        $this->trainer_view = new trainerView;
+        if(!isset($res)){$this->trainer_view = new trainerView();}
+         else{$this->trainer_view = new trainerView($res->user);}
+       
     }
 
     public function listTrainers(){
@@ -16,7 +18,6 @@ class trainerController{
         $this->trainer_view->showTrainers($trainers);
     }
 
-    // no la uso (preguntar si esta bien que el controlador devuelva consultas del modelo para interactuar con otros controladores)
     public function getTrainers_ID_name(){
         return $this->trainer_model->getTrainers_ID_name();
     }
@@ -30,12 +31,8 @@ class trainerController{
 
     //muestra galeria de pokemons de un entrenador en particular
     public function trainerPokemons($id_trainer){
-        $trainer_name = $this->trainer_model->getTrainer_Name($id_trainer);
- 
+        $trainer = $this->trainer_model->getTrainer($id_trainer);
         $pokemons = $this->trainer_model->getTrainerPokemons($id_trainer);
-       
-        $trainer['id_entrenador'] = $id_trainer;
-        $trainer['nombre_entrenador'] = $trainer_name['nombre_entrenador'];
       
         $this->trainer_view->showTrainerPokemons($pokemons,$trainer);
     }
@@ -58,17 +55,25 @@ class trainerController{
         }
         return $fields;
     }
-    // array_key_exists();
+     
     public function showForm_INSERT(){
         $this->trainer_view->showForm_INSERT();
-        $this->trainer_view->return("trainer-list/" ,"Lista de Entrenadores");
+        
     }
 
     public function insertTrainer(){
+        $imgTemp=NULL;
         $updateFields = $this->getFormFields();
-        $this->trainer_model->insertTrainer($updateFields);
-        header('Location: ' . BASE_URL . "register-trainer" );
-       // $this->trainer_view->return("trainer-list/" ,"actualizar entrenador");
+        if(isSet($updateFields)) { 
+            if ($this->imageUploaded()) {
+                $imgTemp = $_FILES['input_name']['tmp_name'];             
+                $this->trainer_model->insertTrainer($updateFields,$imgTemp);               
+            }else
+                $this->trainer_model->insertTrainer($updateFields);           
+        }else{
+            $this->trainer_view->showMessage('Debes modificar al menos un campo para poder actualizar tu [perfil / al entrenador: ]');
+        }        
+        header('Location: ' . BASE_URL . "trainer-list" );
     }
 
     public function showForm_UPDATE($trainerID){
@@ -79,41 +84,30 @@ class trainerController{
     public function updateTrainer($trainerID){
         $imgTemp=NULL;
         $updateFields = $this->getFormFields(true);
-        var_dump('el pepe ::', $updateFields);
-        ?> <br> <?php
         if(isSet($updateFields)) {
-
             $updateFields['id_entrenador'] = $trainerID;
-
             if ($this->imageUploaded()) {
-                $imgTemp = $_FILES['input_name']['tmp_name'];
-                //$updateFields['imagen']=$imgTemp;
-                $this->trainer_model->updateTrainer($updateFields,$imgTemp);
-                //$this->trainer_model->uploadImage($updateFields, $_FILES['input_name']['tmp_name']);
+                $imgTemp = $_FILES['input_name']['tmp_name'];                
+                $this->trainer_model->updateTrainer($updateFields,$imgTemp); 
             }else
                 $this->trainer_model->updateTrainer($updateFields);
-
-            //$updateFields['id_entrenador'] = $trainerID;
-            //$this->trainer_model->updateTrainer($updateFields);
         }else{
             $this->trainer_view->showMessage('Debes modificar al menos un campo para poder actualizar tu [perfil / al entrenador: ]');
         }
-        //header('Location: ' . BASE_URL . "trainer-list");
-
-        $this->trainer_view->return("modify-trainer/$trainerID" ,"actualizar entrenador");
+        header('Location: ' . BASE_URL . "trainer-information/".$trainerID );         
     }
     
     public function deleteTrainer($trainerID){
         $this->trainer_model->deleteTrainer($trainerID);
         $this->trainer_view->showMessage('Tu usuario ah sido eliminado exitosamente');
         $this->trainer_view->return("trainer-list/" ,"Lista de Entrenadores");
-        // header('Location: ' . BASE_URL . "trainer-list");
+        header('Location: ' . BASE_URL . "trainer-list");
     }
 
     private function imageUploaded(){
         return $_FILES['input_name']['type'] == "image/jpg"
             || $_FILES['input_name']['type'] == "image/jpeg" 
-            || $_FILES['input_name']['type'] == "image/png";      
+            || $_FILES['input_name']['type'] == "image/png";     
     }
 
 

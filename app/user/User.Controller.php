@@ -6,9 +6,11 @@ class userController{
     private $user_model;
     private $user_view;
 
-    public function __construct(){
+    public function __construct($res=null){
         $this->user_model = new userModel;
-        $this->user_view = new authView;
+        if(!isset($res)){$this->user_view = new authView();}
+         else{$this->user_view = new authView($res->user);}
+        
     }
 
     public function showHome(){
@@ -47,6 +49,8 @@ class userController{
     }
 
     public function closeSession(){
-        
+        session_start();
+        session_destroy();
+        header('Location: ' . BASE_URL . 'home');
     }
 }

@@ -1,4 +1,4 @@
-<img src="<?=$imgHeaderLauoutForm?>" class="rounded header-layout" alt="">
+<img src="<?=$imgHeaderLayoutForm?>" class="rounded header-layout" alt="">
 
 <form action='<?=BASE_URL.$options['action_form']?>' method="POST" id="myForm" enctype="multipart/form-data"> <?php 
 
@@ -54,11 +54,11 @@
         require 'footer-select.phtml'; 
     } 
 
-    if(!isset($label['imagen-pokemon'])){ ?>
+    if(!isset($label['imagen_pokemon'])){ ?>
         <div class="row mb-3">  
-                <label for="imagen-pokemon" class="col-sm-2 col-form-label"> Avatar del Pokemon </label>
+                <label for="imagen_pokemon" class="col-sm-2 col-form-label"> Avatar del Pokemon </label>
                 <div class="col-sm-10">
-                    <input type="file" name="imagen-pokemon" id="imagen-pokemon">
+                    <input type="file" name="input_name" id="imagen_pokemon">
                 </div>
         </div>
     <?php } ?>

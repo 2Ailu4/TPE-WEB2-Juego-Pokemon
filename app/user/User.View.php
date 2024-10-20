@@ -2,7 +2,9 @@
 
 class authView{
     public $user = null;
-    
+    public function __construct($user=null){
+        $this->user = $user;
+    }
     public function showAlertLogin($error = ''){ ?>
         <h1 class="fw-bolder"><mark> <?php echo $error ?> </mark></h1>; <?php
     }

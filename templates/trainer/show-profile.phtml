@@ -10,14 +10,14 @@
         <a class="nav-link" href="<?=$url['trainer-pokemons']?>">Pokemons</a>
       </li>
 
-      <?php if(isset($url['trainer-update'])){ ?>
+      <?php if($this->user){ ?>
       
       <li class="nav-item">
         <a class="nav-link" href="<?=$url['trainer-update']?>">Actualizar</a>
       </li>
 
       <?php }
-      if(isset($url['trainer-delete'])){ ?>
+      if($this->user){ ?>
 
       <li class="nav-item">
         <a href="#" class="nav-link" onclick="confirmLiberation('<?=$url['trainer-delete']?>')">Eliminar entrenador</a>
@@ -26,17 +26,22 @@
       <?php } ?>
     </ul>
   </div>
-  <!-- $template : Ruta del template requerido -->
-   <!-- example:
-             main = [ Card | Template | ... | OtherComponents ] -->
-  <?php require_once $template?>
+  
+  <?php 
+      if(isset($trainerTemplate)){
+        require_once $trainerTemplate;
+      }
+      if(isset($pokemonsTemplate)){
+        require_once $pokemonsTemplate;
+      }
+      
+      if(isset($updateTemplate)){
+        require_once $template;
+      }
+      ?> 
 
 </div>
 
-
-<!-- 
-  Editar modify-pokemon/id_Pokemon  Liberar -> delete-pokemon/id -->
-  
 
 <script>
 function confirmLiberation(url) {

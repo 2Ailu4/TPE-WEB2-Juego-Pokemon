@@ -40,20 +40,29 @@ class pokemonController{
     }
 
     public function insertPokemon(){
+        var_dump("EN INSERTT");
+        ?><br><?php
+        var_dump("FKKK::",  $_POST['FK_id_entrenador']);
         $idTrainer = $_POST['FK_id_entrenador'];
         $nroPokedex = $_POST['nro_pokedex'];
         $namePokemon = $_POST['nombre'];
         $typePokemon = $_POST['tipo'];
         $weight = $_POST['peso'];
-
+        var_dump("temp",$_FILES['input_name']['tmp_name']);
         $nroPokedexExists = $this->pokemon_model->countNroPokedex($nroPokedex);
+
         if($nroPokedexExists > 0){  //si ya existe el nro_pokedex
+
             $pokemonInDB = $this->pokemon_model->getPokemonByNroPokedex($nroPokedex);
+            $imgTemp = $pokemonInDB->imagen_pokemon; // agarro la imagen de el pokemon}
+           
+     
             if(($pokemonInDB->nombre === $namePokemon) && ($pokemonInDB->tipo === $typePokemon)){ 
                 if($idTrainer === "NULL"){
-                    $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight);
+                    var_dump("POKEEEEEEEEEEEEE   ",$pokemonInDB);
+                    $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight, $imgTemp,null,$imgTemp);
                 }else{
-                    $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight, $idTrainer);
+                    $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight, $imgTemp, $idTrainer);
                 }
             }else{  //si el nombre o el tipo NO coinciden
                 $this->pokemon_view->showAlert("Lo sentimos el pokemon con Numero de Pokedex: ".$nroPokedex." ya existe, pero el nombre y el tipo ingresados no coinciden con el cargado en la base de datos");
@@ -61,38 +70,42 @@ class pokemonController{
                 $this->pokemon_view->return("add-pokemon", "Volver a intentar");
             }
         }else{  //si el nro_pokedex no existe en la DB
+            $imgTemp = null;
+            $pokemon_existent =  'verificar en db si existe ';
+             
+            if ($this->imageUploaded()) {
+                
+                $imgTemp = $_FILES['input_name']['tmp_name']; 
+                
+                var_dump('sasa:: ',$imgTemp);
+            }else { 
+                $this->pokemon_view->showAlert('Error: Es necesario ingresar una imagen para agregar nuevas especies de Pokemons');
+                die(); 
+            } 
+           
+            var_dump('aaaa:: ',$_FILES['input_name']['tmp_name']);
             if($idTrainer === "NULL"){
-                $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight);
+
+                $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight ,$imgTemp);
             }else{
-                $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight, $idTrainer);
+                $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight, $imgTemp, $idTrainer);
             }
         }
         header('Location: ' . BASE_URL . "listPokemons");
     }
 
-    public function imageUpdate() {   
-        $pokemon_existent =  'verificar en db si existe ';
-            if (!$pokemon_existent ){
-                if ($this->imageUploaded()) {
-                    $imgTemp = $_FILES['input_name']['tmp_name']; 
-                }else { 
-                    $this->pokemon_view->showMessage('Error: Es necesario ingresar una imagen para agregar nuevas especies de Pokemons');
-                    die(); 
-                } 
-            }else{$imgTemp = $pokemon_existent -> imagen; }// agarro la imagen de el pokemon}
-            
-        // toda la logica ACTUALIZADA de insertar  
-        
-        $id_New_Pokemon = $this->pokemon_model->insertPokemon($pokemon->nro_pokedex, $namePokemon, $pokemon->tipo, $weight, $idTrainer, $imgTemp);
-        return $id_New_Pokemon;
+    private function imageUploaded(){
+        return $_FILES['input_name']['type'] == "image/jpg"
+            || $_FILES['input_name']['type'] == "image/jpeg" 
+            || $_FILES['input_name']['type'] == "image/png";      
     }
-
+    
     
     // .....Eliminacion......
     public function releasePokemon($id_Pokemon){
-        $id_Trainer = $this->pokemon_model->releasePokemon($id_Pokemon);
-        $this->pokemon_view->showAlert("El Pokemon se elimino con exito");
-        header('Location: ' . BASE_URL . "trainer-pokemons/" . $id_Trainer->FK_id_entrenador);
+        $id_Trainer = $this->pokemon_model->getFkTrainerByPokemon_DELETE($id_Pokemon);;
+        $this->pokemon_model->releasePokemon($id_Pokemon);
+        header('Location: ' . BASE_URL . "trainer-pokemons/".$id_Trainer['FK_id_entrenador']);
     }
 
 
@@ -137,10 +150,5 @@ class pokemonController{
     }
  
 
-    private function imageUploaded(){
-        return $_FILES['input_name']['type'] == "image/jpg"
-            || $_FILES['input_name']['type'] == "image/jpeg" 
-            || $_FILES['input_name']['type'] == "image/png";      
-    }
         
 }
