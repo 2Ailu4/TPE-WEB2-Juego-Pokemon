@@ -65,12 +65,19 @@ class trainerView{
     }
 
     public function showForm_UPDATE($trainer){
+        $action=['action_form'=>'update-trainer/'.$trainer['id_entrenador']];
+        $label = $this->__get_form_labels();
+        $template_profile = './templates/trainer/form/insert-update.phtml'; //FORM
+       
+        $url = $this->__get_Profile_Links($trainer);
+        $trainer_ID = "/".$trainer['id_entrenador'];
+        $template=   './templates/trainer/show-profile.phtml';
+        //////
+        //INDEX.PHTML
         $imgPokeball = "./images/pokeball.png";
         $imgHeaderLayoutForm="../images/header-layout.png";
         $imgFooterLayoutForm = "../images/footer-layout.png";
-        $action=['action_form'=>'update-trainer/'.$trainer['id_entrenador']];
-        $label = $this->__get_form_labels();
-        $template = './templates/trainer/form/insert-update.phtml'; 
+       
         require_once './templates/layout/index.phtml';
     }
 

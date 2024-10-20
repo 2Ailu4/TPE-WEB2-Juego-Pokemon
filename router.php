@@ -18,8 +18,9 @@ $res = new Response;
 $params = explode('/', $action);
    
 switch($params[0]){
-    case "home":    
-        $controller = new userController();
+    case "home": 
+        sessionAuthMiddleware($res);   
+        $controller = new userController($res);
         $controller->showHome();
         break;
     case "listPokemons":
@@ -70,7 +71,7 @@ switch($params[0]){
 // ------------------------------------------
     case "trainer-list":
         sessionAuthMiddleware($res);
-        $trainerController = new trainerController();
+        $trainerController = new trainerController($res);
         $trainerController->listTrainers();
         break;
 
@@ -109,19 +110,19 @@ switch($params[0]){
     case "update-trainer":
         sessionAuthMiddleware($res);
         sessionAuthFirewall($res);
-        $trainerController = new trainerController();
+        $trainerController = new trainerController($res);
         $trainerController->updateTrainer($params[1]);
         break;
 
     case "delete-trainer":
         sessionAuthMiddleware($res);
         sessionAuthFirewall($res);
-        $trainerController = new trainerController();
+        $trainerController = new trainerController($res);
         $trainerController->deleteTrainer($params[1]);
         break;
 
     case "close-session":
-        $userController = new userController();
+        $userController = new userController($res);
         $userController->closeSession();
         break;
     default:

@@ -30,9 +30,8 @@
               if (!$this->user) {$hide_a = 'hide' ; $hide_b = ''; }?>
               
                 <?php if ($this->user) { ?>
-                    <a href="<?=BASE_URL?>close-session" type="button" class="btn btn-primary dropdown-toggle <?=$hide_a?>" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                        Cerrar Sesion 
-                    </a>
+                    <a href="<?=BASE_URL?>close-session" class="btn btn-primary">Cerrar Sesion </a>
+                    
                 <?php }else{ ?>
                     <button type="button" class="btn btn-primary dropdown-toggle <?=$hide_b?> "  data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                         Iniciar Sesion

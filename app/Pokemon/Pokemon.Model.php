@@ -78,7 +78,7 @@ class pokemonModel{
     public function insertPokemon($nro_pokedex, $nombre, $tipo, $peso, $imgTemp, $entrenador=null, $pathImg_exists = null){
         $pathImg = $pathImg_exists; 
         // carga de imagen
-        if(!$pathImg_exists){
+        if(!isset($pathImg_exists)){
             $pathImg = $this->uploadImage($imgTemp,$nombre);
         }
         
@@ -114,19 +114,18 @@ class pokemonModel{
     private function uploadImage($imgTemp, $nombre_pokemon, $update = false, $relativePath = "images/pokemons/") {
  
         $extension = strtolower(pathinfo($_FILES['input_name']['name'], PATHINFO_EXTENSION));
-        var_dump('extention:  ', $extension);
+        //var_dump('extention:  ', $extension);
         ?><br><?php
         $filePath = $relativePath . $nombre_pokemon . "." . $extension;
         
-        if($update){
-            // elimina la imagen de pokemon 
+        if($update){// elimina la imagen de pokemon 
             $this->deleteImage($filePath); 
-            // setea la nueva imagen para dicho pokemon
-        }
+}
+        // setea la nueva imagen para dicho pokemon
         if (!move_uploaded_file($imgTemp, $filePath)) {
             throw new Exception("Error al mover el archivo subido.");
         }
-    
+         
         return $filePath;
     }
  
@@ -236,9 +235,9 @@ class pokemonModel{
 
         $update_attributes= $this->add_existent_keys(['peso','fecha_captura','imagen_pokemon','FK_id_entrenador'],$updateFields);
         $whereParams="id = :id ";
-        echo("legueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+        
         if (isset($update_attributes['FK_id_entrenador']) && $update_attributes['FK_id_entrenador'] === "NULL") { $update_attributes['FK_id_entrenador']= NULL;}
-        echo("legueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee2222222222");
+        
         $this->update_BY_ASSOC_Array($id_Pokemon, $update_attributes, $whereParams);
 
     }
@@ -320,8 +319,7 @@ class pokemonModel{
     private function update($updateParams, $whereParams, $ASSOC_Array){
         $query = $this->db->prepare("UPDATE pokemon
                                         SET  $updateParams 
-                                        WHERE $whereParams");
-        var_dump("assoc",$ASSOC_Array)  ;                             
+                                        WHERE $whereParams");                           
         $query->execute($ASSOC_Array); 
     }
 }

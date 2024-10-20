@@ -40,29 +40,39 @@ class pokemonController{
     }
 
     public function insertPokemon(){
-        var_dump("EN INSERTT");
+        // var_dump("EN INSERTT");
         ?><br><?php
-        var_dump("FKKK::",  $_POST['FK_id_entrenador']);
+        // var_dump("FKKK::",  $_POST['FK_id_entrenador']);
         $idTrainer = $_POST['FK_id_entrenador'];
         $nroPokedex = $_POST['nro_pokedex'];
         $namePokemon = $_POST['nombre'];
         $typePokemon = $_POST['tipo'];
         $weight = $_POST['peso'];
-        var_dump("temp",$_FILES['input_name']['tmp_name']);
+         
+        if ( ($idTrainer === "NULL") || ! isSet($nroPokedex) || ! isSet($namePokemon) || ! isSet($typePokemon) || ! isSet($weight)){
+            $this->pokemon_view->showAlert("Error: Debes completar todos los campos del formulario!!");
+            $this->pokemon_view->return("add-pokemon", "Volver a intentar <br>");
+            $this->pokemon_view->return(BASE_URL, "Volver a inicio");
+            die();
+        }
+        
+        // var_dump("temp",$_FILES['input_name']['tmp_name']);
         $nroPokedexExists = $this->pokemon_model->countNroPokedex($nroPokedex);
 
         if($nroPokedexExists > 0){  //si ya existe el nro_pokedex
 
             $pokemonInDB = $this->pokemon_model->getPokemonByNroPokedex($nroPokedex);
             $imgTemp = $pokemonInDB->imagen_pokemon; // agarro la imagen de el pokemon}
-           
+            
      
             if(($pokemonInDB->nombre === $namePokemon) && ($pokemonInDB->tipo === $typePokemon)){ 
                 if($idTrainer === "NULL"){
-                    var_dump("POKEEEEEEEEEEEEE   ",$pokemonInDB);
+                    // var_dump("POKEEEEEEEEEEEEE   ",$pokemonInDB);
+                    
                     $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight, $imgTemp,null,$imgTemp);
                 }else{
-                    $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight, $imgTemp, $idTrainer);
+                    var_dump("POKEEEEEEEEEEEEE   ",$imgTemp);
+                    $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight, $imgTemp, $idTrainer,$imgTemp);
                 }
             }else{  //si el nombre o el tipo NO coinciden
                 $this->pokemon_view->showAlert("Lo sentimos el pokemon con Numero de Pokedex: ".$nroPokedex." ya existe, pero el nombre y el tipo ingresados no coinciden con el cargado en la base de datos");
@@ -77,13 +87,13 @@ class pokemonController{
                 
                 $imgTemp = $_FILES['input_name']['tmp_name']; 
                 
-                var_dump('sasa:: ',$imgTemp);
+                // var_dump('sasa:: ',$imgTemp);
             }else { 
                 $this->pokemon_view->showAlert('Error: Es necesario ingresar una imagen para agregar nuevas especies de Pokemons');
                 die(); 
             } 
            
-            var_dump('aaaa:: ',$_FILES['input_name']['tmp_name']);
+            // var_dump('aaaa:: ',$_FILES['input_name']['tmp_name']);
             if($idTrainer === "NULL"){
 
                 $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight ,$imgTemp);

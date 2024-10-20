@@ -7,7 +7,6 @@ class trainerModel{
         $this->db = new PDO('mysql:host=localhost;dbname=tpe-web2-hiese-peralta;charset=utf8', 'root', '');
     }
 
-    // getTrainers($id_trainer=null, $name_trainer=null);
     public function getTrainers_ID_name(){
         $query = $this->db->prepare('SELECT id_entrenador,nombre_entrenador FROM entrenadorpokemon');
         $query->execute();
