@@ -1,0 +1,25 @@
+ <!-- Perfil del entrenador Pokemon -->
+ <?php
+  
+ $img   = "../". htmlspecialchars($trainer['imagen']);
+ 
+ $nameT =  htmlspecialchars($trainer['nombre_entrenador']);
+?>
+
+<div class="card">
+<?php 
+if($img){ ?>
+  <img src="<?=$img?>" class="img-fluid rounded-start" alt="...">
+<?php 
+}else{ ?>
+  <img src="https://github.com/2Ailu4/TPE-WEB2-Juego-Pokemon/blob/dev/images/trainers/<?=$nameT?>.jpg?raw=true" class="img-fluid rounded-start" alt="...">
+<?php } ?> 
+      <h5 class="card-header">Nivel <?=htmlspecialchars($trainer['nivel_entrenador'])?> </h5>
+      <div class="card-body">
+        <h5 class="card-title">Usuario: <?=$nameT?> </h5>
+        <p class="card-text">Pueblo: <?=htmlspecialchars($trainer['ciudad_origen'])?></p>
+        <p class="card-text">Medallas: <?=htmlspecialchars($trainer['cant_medallas'])?></p>
+        <a href="<?=$url['trainers']?>" class="btn btn-primary">Volver a ver Jugadores</a>
+      </div>
+</div>
+

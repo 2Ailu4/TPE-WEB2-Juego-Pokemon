@@ -1,0 +1,29 @@
+ <!-- Presentacion simple entrenador Pokemon -->
+<?php
+ 
+ $img   =  htmlspecialchars($trainer['imagen']);
+ $nameT =  htmlspecialchars($trainer['nombre_entrenador']);
+?>
+<div class="">
+
+  <div class="card mb-3 " > 
+ 
+    <div class="row g-0">
+      <div class="col-md-4">
+        <?php
+        if($img){ ?>
+          <img src="<?=$img?>" class="img-fluid rounded-start" alt="...">
+        <?php }else{ ?>
+          <img src="https://github.com/2Ailu4/TPE-WEB2-Juego-Pokemon/blob/dev/images/trainers/<?=$nameT?>.jpg?raw=true" class="img-fluid rounded-start" alt="...">
+        <?php } ?>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Usuario: <?=$nameT?> </h5>
+          <h5 class="card-title">Nivel <?=htmlspecialchars($trainer['nivel_entrenador'])?> </h5>
+          <a href="<?=$url?>" class="btn btn-primary">+ Informacion</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

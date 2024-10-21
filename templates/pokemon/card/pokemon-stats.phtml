@@ -1,0 +1,43 @@
+<!-- Card de Estadisticas del Pokemon -->
+  <div class="card" style="width: 18rem;">
+  <?php
+  if (isset($pokemon['imagen_pokemon'])) {$img ="../".htmlspecialchars($pokemon['imagen_pokemon']);}
+  else $img = false;
+  
+  
+  if($img){ ?>
+    <img src="<?=$img?>" class="img-fluid rounded-start" alt="...">
+  <?php }else{ ?>
+     <img src="https://github.com/2Ailu4/TPE-WEB2-Juego-Pokemon/blob/main/images/pokemons/<?=htmlspecialchars($pokemon['nombre'])?>.jpg?raw=true" class="card-img-top" alt="...">
+  <?php } ?>
+    
+    <div class="card-body">
+      <h5 class="card-title">Este Pokemon fue capturado por <?=$trainer['nombre_entrenador']?> en la <br>Fecha: <?=$pokemon['fecha_captura']?> </h5>
+      <p class="card-text"></p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Numero Pokedex: <?=htmlspecialchars($pokemon['nro_pokedex'])?> </li>
+      <li class="list-group-item">Nombre: <?=htmlspecialchars($pokemon['nombre'])?></li>
+      <li class="list-group-item">Tipo: <?=htmlspecialchars($pokemon['tipo'])?></li>
+      <li class="list-group-item">Peso: <?=htmlspecialchars($pokemon['peso'])?> kg</li>
+    </ul>
+  <?php if($this->user){ ?>
+    <div class="card-body">  
+        <a href="<?=$url['update']?>" class="card-link ">Editar</a>
+        <a href="#" class="card-link" onclick="confirmLiberation('<?=$url['set-free']?>')">Liberar</a>
+    </div> <?php } ?>
+    
+  </div>
+
+  
+
+<script>
+function confirmLiberation(url) {
+    // Mostrar el mensaje de confirmación
+    const confirmation = confirm("Al liberar este Pokémon, no podrás recuperarlo. ¿Deseas continuar?");
+    if (confirmation) {
+        // Si el usuario confirma, redirigir a la URL para liberar el Pokémon
+        window.location.href = url;
+    }
+}
+</script>

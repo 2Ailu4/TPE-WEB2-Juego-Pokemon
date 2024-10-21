@@ -1,0 +1,65 @@
+<header>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<?=BASE_URL?>home">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mas informacion</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="<?=BASE_URL?>listPokemons">Pokemons</a></li>
+                        <li><a class="dropdown-item" href="<?=BASE_URL?>trainer-list">Entrenadores</a></li>
+                        
+                        <?php if($this->user){?>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="<?=BASE_URL?>showUpdateItemsCategories">Modificar-Tablas</a></li>
+                        <?php } ?>
+                        
+                    </ul>
+                </li>
+            </ul>
+
+            <img src="<?=$imgPokeball?>" alt="" class="tamaño-imagen">
+            
+            <!-- login -->
+            <div class="dropdown centrar-img">
+                
+            <?php $hide_b = 'hide' ; $hide_a = '' ;
+              if (!$this->user) {$hide_a = 'hide' ; $hide_b = ''; }?>
+              
+                <?php if ($this->user) { ?>
+                    <a href="<?=BASE_URL?>close-session" class="btn btn-primary">Cerrar Sesion </a>
+                    
+                <?php }else{ ?>
+                    <button type="button" class="btn btn-primary dropdown-toggle <?=$hide_b?> "  data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                        Iniciar Sesion
+                    </button>
+                        <div class="ancho-login">
+                            <form action='<?=BASE_URL?>login' method='POST' class="dropdown-menu p-4">
+                                <div class="mb-3">
+                                    <label for="exampleDropdownFormEmail2" class="form-label">Nombre de usuario/Email</label>
+                                    <input name="user" type="text" class="form-control" id="exampleDropdownFormEmail2" placeholder="nombre | email@example.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleDropdownFormPassword2" class="form-label">Contraseña</label>
+                                    <input name="password" type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="dropdownCheck2">
+                                        <label class="form-check-label" for="dropdownCheck2">Remember me</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Sign in</button>
+                            </form>
+                        </div>
+                <?php }?>
+            </div>
+            <!-- end login -->
+
+        </div>
+      </div>
+    </nav>
+</header>

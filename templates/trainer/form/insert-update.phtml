@@ -1,0 +1,51 @@
+<img src="<?=$imgHeaderLayoutForm?>" class="rounded header-layout" alt="">
+
+<form action='<?=BASE_URL.$action['action_form']?>' method="POST" enctype="multipart/form-data"> <?php 
+
+    if(!isset($label['nombre_entrenador'])){ ?>
+        <div class="row mb-3">  
+            <label for="nombre_entrenador" class="col-sm-2 col-form-label"> Nombre de Entrenador </label>
+            <div class="col-sm-10">
+                <input name="nombre_entrenador" type="text" class="form-control" id="nombre_entrenador" placeholder="<?=$trainer["nombre_entrenador"]?>" aria-label="nombre_entrenador" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php } 
+
+    if(!isset($label['ciudad_origen'])){ ?>
+        <div class="row mb-3">  
+            <label for="ciudad_origen" class="col-sm-2 col-form-label"> Ciudad de Origen </label>
+            <div class="col-sm-10">
+                <input name="ciudad_origen" type="text" class="form-control" id="ciudad_origen" placeholder="<?=$trainer["ciudad_origen"]?>" aria-label="Ciudad Origen" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php } 
+
+    if(!isset($label['nivel_entrenador'])){ ?>
+        <div class="row mb-3">  
+            <label for="nivel_entrenador" class="col-sm-2 col-form-label"> Nivel de Entrenador </label>
+            <div class="col-sm-10">
+            <input name="nivel_entrenador" type="number" class="form-control" id="nivel_entrenador" placeholder="<?=$trainer["nivel_entrenador"]?>" aria-label="Nivel de Entrenador" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php } 
+
+    if(!isset($label['cant_medallas'])){ ?>
+        <div class="row mb-3">  
+            <label for="cant_medallas" class="col-sm-2 col-form-label"> Cantidad de Medallas </label>
+            <div class="col-sm-10">
+                <input name="cant_medallas" type="number" class="form-control" id="cant_medallas" placeholder="<?=$trainer["cant_medallas"]?>" aria-label="Cantidad de medallas" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php } ?>
+
+    <div class="row mb-3">  
+            <label for="entrenador_pokemon" class="col-sm-2 col-form-label"> Cargar Imagen </label>
+            <div class="col-sm-10">
+                <input type="file" name="input_name" id="imageToUpload">
+            </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Aceptar</button>
+</form>
+
+<img src="<?=$imgFooterLayoutForm?>" class="rounded header-layout" alt="">

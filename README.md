@@ -22,6 +22,13 @@ Animate a incursionar en esta nueva aventura, capturalos a todos, entrenando y c
 ## DER 
 ![Diagrama de Entidades y Relaciones](/images/DEREntrenadorPokemon.png)
 
+## :Desplegar el sitio :
+	* Descargar instalar XAMPP 
+  	* En la carpeta "C:\xampp\htdocs\" mediante git hub crear un repositorio en git bash y clonar el repositorio "https://github.com/2Ailu4/	TPE-WEB2-Juego-Pokemon"
+	* En XAMP habilitar apache y mysql
+	* en el navegador buscar "http://localhost/phpmyadmin/" e importar las tablas del proyecto
+	 
+
 # :rocket: Tecnologias:
 
 <div>

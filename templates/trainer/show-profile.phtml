@@ -1,0 +1,61 @@
+<!-- Main container para perfil del Entrenador ( Tarjeta de tipo Bloque con Navegabilidad ) -->
+ <!-- Card-Header with navigability  -->
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="<?=$url['trainer-link']?>">Entrenador: <?=htmlspecialchars($trainer['nombre_entrenador'])?> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?=$url['trainer-pokemons']?>">Pokemons</a>
+      </li>
+
+      <?php if($this->user){ ?>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="<?=$url['trainer-update']?>">Actualizar</a>
+      </li>
+
+      <?php }
+      if($this->user){ ?>
+
+      <li class="nav-item">
+        <a href="#" class="nav-link" onclick="confirmLiberation('<?=$url['trainer-delete']?>')">Eliminar entrenador</a>
+      </li>
+
+      <?php } ?>
+    </ul>
+  </div>
+  
+  <?php 
+      if(isset($trainerTemplate)){
+        require_once $trainerTemplate;
+      }
+      if(isset($pokemonsTemplate)){
+        require_once $pokemonsTemplate;
+      }
+      
+      if(isset($updateTemplate)){
+        require_once $template;
+      }
+
+      if(isset($template_profile)){
+        require_once $template_profile;
+      }
+
+      
+      ?> 
+
+</div>
+
+
+<script>
+function confirmLiberation(url) {
+    // Mostrar el mensaje de confirmación
+    const confirmation = confirm("Si continuas con la operacion, se eliminara completamente tu usuario, sin posibilidad de recuperarlo. ¿Deseas continuar?");
+    if (confirmation) {
+        // Si el usuario confirma, redirigir a la URL para liberar el Pokémon
+        window.location.href = url;
+    }
+}
+</script>

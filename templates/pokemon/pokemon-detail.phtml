@@ -1,0 +1,38 @@
+<div class="card mb-3 text-center">
+  <div class="row g-0">
+    <div class="col-md-4 centrar-img">
+    <?php  
+    $img = htmlspecialchars($pokemon->imagen_pokemon);
+    if($img){ ?>
+      <img src="<?=$img?>" class="img-fluid rounded-start ajustarImg" alt="...">
+    <?php 
+    }else{ ?>
+      <img src="https://github.com/2Ailu4/TPE-WEB2-Juego-Pokemon/blob/main/images/pokemons/<?=htmlspecialchars($pokemon->nombre)?>.jpg?raw=true" class="img-fluid rounded-start ajustarImg" alt="...">
+    <?php } ?> 
+      
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"> <span class="text-decoration-underline fst-italic">Nombre del Pokemon:</span> <?=htmlspecialchars($pokemon->nombre)?> </h5>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"> 
+                <?php if($pokemon->nombre_entrenador === "Es Salvaje"){  ?>
+                  <span class="fw-bold">Entrenador: <?=htmlspecialchars($pokemon->nombre_entrenador)?> </span> 
+                  <img src="./gifs/arbusto.gif" alt="" class="tamaño-imagen chiquita"><?php
+                }else{ ?>
+                  <span class="fw-bold">
+                      Entrenador: <a href="<?=BASE_URL?>trainer-information/<?=htmlspecialchars($pokemon->FK_id_entrenador)?>" class="btn btn-light"> <?=htmlspecialchars($pokemon->nombre_entrenador)?> </a>
+                      <img src="<?=$imgPokeball?>" alt="" class="tamaño-imagen">
+                  </span>  <?php
+                } ?>
+            </li>
+            <li class="list-group-item"> <span class="fw-bold">Es de tipo:</span> <?=htmlspecialchars($pokemon->tipo)?> </li>
+            <?php if($pokemon->nombre_entrenador !== "Es Salvaje"){?>
+              <li class="list-group-item"> <span class="fw-bold">Fue capturado el:</span> <?=htmlspecialchars($pokemon->fecha_captura)?> </li>
+            <?php } ?> 
+            <li class="list-group-item"> <span class="fw-bold">Pesa:</span> <?=htmlspecialchars($pokemon->peso)?>kg </li>
+        </ul>
+    </div>
+    </div>
+  </div>
+</div>

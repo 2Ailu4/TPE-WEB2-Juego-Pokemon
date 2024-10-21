@@ -1,0 +1,83 @@
+<img src="<?=$imgHeaderLayoutForm?>" class="rounded header-layout" alt="">
+
+<form action='<?=BASE_URL.$options['action_form']?>' method="POST" id="myForm" enctype="multipart/form-data"> <?php 
+
+    if(!isset($label['nro_pokedex'])){ ?>
+        <div class="row mb-3">  
+            <label for="nro_pokedex" class="col-sm-2 col-form-label"> Numero de Pokedex </label>
+            <div class="col-sm-10">
+                <input name="nro_pokedex" type="number" class="form-control" id="nro_pokedex" placeholder="<?=htmlspecialchars($field["number-pokedex-pokemon"])?>" aria-label="pokedex" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php } 
+
+    if(!isset($label['pokemon'])){ ?>
+        <div class="row mb-3">  
+            <label for="pokemon" class="col-sm-2 col-form-label"> Nombre del Pokemon </label>
+            <div class="col-sm-10">
+                <input name="nombre" type="text" class="form-control" id="pokemon" placeholder="<?=htmlspecialchars($field["name-pokemon"])?>" aria-label="Nombre" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php } 
+
+    if(!isset($label['tipo'])){ ?>
+        <div class="row mb-3">  
+            <label for="tipo" class="col-sm-2 col-form-label"> Tipo del Pokemon </label>
+            <div class="col-sm-10">
+                <input name="tipo" type="text" class="form-control" id="tipo" placeholder="<?=htmlspecialchars($field["type-pokemon"])?>" aria-label="Tipo/s" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php } 
+
+    if(!isset($label['fecha_captura'])){ ?>
+        <div class="row mb-3">  
+            <label for="fecha_captura" class="col-sm-2 col-form-label"> Fecha de Captura </label>
+            <div class="col-sm-10">
+                <input value="<?=htmlspecialchars($field["capture-date-pokemon"])?>" name="fecha_captura" type="datetime" class="form-control" id="fecha_captura" aria-label="YYYY-MM-DD" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php } 
+
+    if(!isset($label['peso'])){ ?>
+        <div class="row mb-3">  
+            <label for="peso" class="col-sm-2 col-form-label"> Peso del pokemon </label>
+            <div class="col-sm-10">
+                <input name="peso" type="number" class="form-control" id="peso" placeholder="<?=htmlspecialchars($field["weight-pokemon"])?>" aria-label="Peso en kg" aria-describedby="addon-wrapping">
+            </div>
+        </div>
+    <?php }
+
+    if(!isset($label['entrenador'])){ 
+        require 'header-select.phtml'; ?>
+        <option value="NULL">NULL</option> <?php 
+        require 'options-select-trainer.phtml';
+        require 'footer-select.phtml'; 
+    } 
+
+    if(!isset($label['imagen_pokemon'])){ ?>
+        <div class="row mb-3">  
+                <label for="imagen_pokemon" class="col-sm-2 col-form-label"> Avatar del Pokemon </label>
+                <div class="col-sm-10">
+                    <input type="file" name="input_name" id="imagen_pokemon">
+                    <!-- <input type="file" name="imagen_pokemon" id="imagen_pokemon"> -->
+                </div>
+        </div>
+    <?php } ?>
+
+    <button type="button" class="btn btn-primary" onclick="confirmLiberation('<?=$options['message']?>')">Aceptar</button>
+
+</form>
+
+
+<img src="<?=$imgFooterLayoutForm?>" class="rounded header-layout" alt="">
+
+<script> 
+function confirmLiberation(message) {
+    const confirmation = confirm(message);
+    if (confirmation) {
+        
+        document.getElementById('myForm').submit(); // Envía el formulario
+    }
+}
+</script>
+  
