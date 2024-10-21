@@ -228,14 +228,25 @@ class pokemonModel{
                 }
             }
         }
-        
+
         if(array_key_exists('tipo',$updateFields)){ 
             $this->updateType_BY_nro_Pokedex($nro_pokedex_for_update_Type, $updateFields['tipo']);
         }
-
-        $update_attributes= $this->add_existent_keys(['peso','fecha_captura','imagen_pokemon','FK_id_entrenador'],$updateFields);
+        // carga de imagen
+        $update_attributes=[];
         $whereParams="id = :id ";
+        $pathImg=null;
+        $imgTemp = $_FILES['input_name']['tmp_name']; 
         
+        if(!empty($imgTemp)){
+            var_dump("dasdsadsa", $imgTemp);
+            $pathImg = $this->uploadImage($imgTemp,$pokemon->nombre);
+            $updateFields['imagen_pokemon'] = $pathImg;
+            $update_attributes= $this->add_existent_keys(['peso','fecha_captura', 'imagen_pokemon', 'FK_id_entrenador'],$updateFields);
+        }else{
+            $update_attributes= $this->add_existent_keys(['peso','fecha_captura','FK_id_entrenador'],$updateFields);
+        }
+
         if (isset($update_attributes['FK_id_entrenador']) && $update_attributes['FK_id_entrenador'] === "NULL") { $update_attributes['FK_id_entrenador']= NULL;}
         
         $this->update_BY_ASSOC_Array($id_Pokemon, $update_attributes, $whereParams);

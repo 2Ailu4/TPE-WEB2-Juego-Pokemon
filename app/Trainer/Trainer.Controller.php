@@ -61,9 +61,22 @@ class trainerController{
         
     }
 
+    private function verifyParams($updateFields){
+        if(!isSet($updateFields['nombre_entrenador']) || !isSet($updateFields['ciudad_origen']) || !isSet($updateFields['nivel_entrenador']) || !isSet($updateFields['cant_medallas']) || !isSet($updateFields['descripcion']) ){
+            $this->trainer_view->showMessage("Error: Debes completar todos los campos del formulario!!");
+            $this->trainer_view->return("register-trainer", "Volver a intentar <br>");
+            $this->trainer_view->return(BASE_URL, "Volver a inicio");
+            return false;
+        }
+        return true;
+    }
+
     public function insertTrainer(){
         $imgTemp=NULL;
         $updateFields = $this->getFormFields();
+        if(! $this->verifyParams($updateFields) ){ 
+            die();
+        }
         if(isSet($updateFields)) { 
             if ($this->imageUploaded()) {
                 $imgTemp = $_FILES['input_name']['tmp_name'];             
@@ -84,7 +97,7 @@ class trainerController{
     public function updateTrainer($trainerID){
         $imgTemp=NULL;
         $updateFields = $this->getFormFields(true);
-        if(isSet($updateFields)) {
+        if(!empty($updateFields)){
             $updateFields['id_entrenador'] = $trainerID;
             if ($this->imageUploaded()) {
                 $imgTemp = $_FILES['input_name']['tmp_name'];                
@@ -92,9 +105,11 @@ class trainerController{
             }else
                 $this->trainer_model->updateTrainer($updateFields);
         }else{
-            $this->trainer_view->showMessage('Debes modificar al menos un campo para poder actualizar tu [perfil / al entrenador: ]');
+            $this->trainer_view->showMessage('Debes modificar al menos un campo para poder actualizar tu [perfil / al entrenador: ]<br>');
+            $this->trainer_view->return("modify-trainer/$trainerID", "Volver a intentar <br>");
+            $this->trainer_view->return(BASE_URL, "Volver a inicio");
         }
-        header('Location: ' . BASE_URL . "trainer-information/".$trainerID );         
+        header('Location: ' . BASE_URL . "trainer-information/".$trainerID );            
     }
     
     public function deleteTrainer($trainerID){

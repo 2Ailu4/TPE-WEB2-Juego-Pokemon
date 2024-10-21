@@ -4,8 +4,8 @@
   if (isset($pokemon['imagen_pokemon'])) {$img ="../".htmlspecialchars($pokemon['imagen_pokemon']);}
   else $img = false;
   
-  if($img){  ?>
   
+  if($img){ ?>
     <img src="<?=$img?>" class="img-fluid rounded-start" alt="...">
   <?php }else{ ?>
      <img src="https://github.com/2Ailu4/TPE-WEB2-Juego-Pokemon/blob/main/images/pokemons/<?=htmlspecialchars($pokemon['nombre'])?>.jpg?raw=true" class="card-img-top" alt="...">

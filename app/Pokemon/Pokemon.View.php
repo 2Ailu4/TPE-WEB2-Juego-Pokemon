@@ -34,6 +34,7 @@ class pokemonView{
                     'label-data'=>'Nombre del Entenador', 
                     'select-name'=>'trainer',
                     'message'=>'¿¿Esta seguro que quiere insertar el nuevo Pokemon??'];
+                    
         $name_trainer =null;
         $field = [  'number-pokedex-pokemon'=>'pokedex', 
                     'name-pokemon'=>'Nombre', 
@@ -54,6 +55,7 @@ class pokemonView{
                     'label-data' =>'Nombre del Entenador', 
                     'select-name'=> 'trainerUpdate',
                     'message'=>'Si acepta se modificara el pokemon: '.$name_pokemon];
+
         $field = [  'number-pokedex-pokemon'=>$nro_pokedex, 
                     'name-pokemon'=>$name_pokemon, 
                     'type-pokemon'=>$type_pokemon, 

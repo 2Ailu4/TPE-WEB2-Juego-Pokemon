@@ -59,6 +59,7 @@
                 <label for="imagen_pokemon" class="col-sm-2 col-form-label"> Avatar del Pokemon </label>
                 <div class="col-sm-10">
                     <input type="file" name="input_name" id="imagen_pokemon">
+                    <!-- <input type="file" name="imagen_pokemon" id="imagen_pokemon"> -->
                 </div>
         </div>
     <?php } ?>
@@ -70,7 +71,7 @@
 
 <img src="<?=$imgFooterLayoutForm?>" class="rounded header-layout" alt="">
 
-<script>
+<script> 
 function confirmLiberation(message) {
     const confirmation = confirm(message);
     if (confirmation) {
