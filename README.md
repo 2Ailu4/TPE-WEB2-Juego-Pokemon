@@ -23,11 +23,32 @@ Animate a incursionar en esta nueva aventura, capturalos a todos, entrenando y c
 ![Diagrama de Entidades y Relaciones](/images/DEREntrenadorPokemon.png)
 
 ## :Desplegar el sitio :
-	* Descargar instalar XAMPP 
-  	* En la carpeta "C:\xampp\htdocs\" mediante git hub crear un repositorio en git bash y clonar el repositorio "https://github.com/2Ailu4/	TPE-WEB2-Juego-Pokemon"
-	* En XAMP habilitar apache y mysql
-	* en el navegador buscar "http://localhost/phpmyadmin/" e importar las tablas del proyecto
-	 
+ * Descargar instalar XAMPP 
+ * En la carpeta "C:\xampp\htdocs\" mediante git hub crear un repositorio en git bash y clonar el repositorio "https://github.com/2Ailu4/TPE-WEB2-Juego-Pokemon"
+ * En la interfaz de XAMP habilitar Apache y MySQL
+ * En el navegador abrimos la base de datos "http://localhost/phpmyadmin/" y creamos un nuevo esquema ("base de datos")
+	
+<p align="center">
+  <img align="center" src="images/desplegar-sitio/phpMyAdmin.png">
+</p>
+
+* En visual Studio Code : Abrimos el proyecto que clonamos y en la raiz "TPE-WEB2-Juego-Pokemon" creamos la carpeta config y el archivo config.php, y seteamos las constantes dadas a continuacion :
+
+<p align="center">
+  <img align="center" src="images/desplegar-sitio/config.png">
+</p>
+
+* Simplemente nos queda ingresar en el navegador "http://localhost/ **RUTA-AL-PROYECTO/** 
+  donde RUTA-AL-PROYECTO, es la ruta relativa a **C:\xampp\htdocs\** RUTA-AL-PROYECTO .
+	
+    Por ejemplo, si tuvieramos el proyecto en "C:\xampp\htdocs\ **web2\TPE-WEB2-Juego-Pokemon**"
+
+	Ingresaremos a  **"http://localhost/web2/TPE-WEB2-Juego-Pokemon/"** 
+
+<p align="center">
+Ya con esto tendras a disposicion nuestro proyecto montado en tu maquina. Aventurate a navegar por la WEB-POKEMON, modifica informacion en la base de datos, **¡¡Haz pruebas locas!!** y si te diviertes y te apaciona, podrias convertirte en colaborador y se parte de este sueño !! . 
+</p>
+
 
 # :rocket: Tecnologias:
 
