@@ -65,7 +65,7 @@ class trainerController{
         if(!isSet($updateFields['nombre_entrenador']) || !isSet($updateFields['ciudad_origen']) || !isSet($updateFields['nivel_entrenador']) || !isSet($updateFields['cant_medallas']) || !isSet($updateFields['descripcion']) ){
             $this->trainer_view->showMessage("Error: Debes completar todos los campos del formulario!!");
             $this->trainer_view->return("register-trainer", "Volver a intentar <br>");
-            $this->trainer_view->return(BASE_URL, "Volver a inicio");
+            $this->trainer_view->return("home", "Volver a inicio");
             return false;
         }
         return true;
@@ -97,19 +97,22 @@ class trainerController{
     public function updateTrainer($trainerID){
         $imgTemp=NULL;
         $updateFields = $this->getFormFields(true);
-        if(!empty($updateFields)){
+        $imageUploaded = $this->imageUploaded();
+        
+        if(!empty($updateFields) || $imageUploaded){
             $updateFields['id_entrenador'] = $trainerID;
-            if ($this->imageUploaded()) {
+            if ($imageUploaded) {
                 $imgTemp = $_FILES['input_name']['tmp_name'];                
                 $this->trainer_model->updateTrainer($updateFields,$imgTemp); 
             }else
                 $this->trainer_model->updateTrainer($updateFields);
+            header('Location: ' . BASE_URL . "trainer-information/".$trainerID );  
         }else{
             $this->trainer_view->showMessage('Debes modificar al menos un campo para poder actualizar tu [perfil / al entrenador: ]<br>');
             $this->trainer_view->return("modify-trainer/$trainerID", "Volver a intentar <br>");
-            $this->trainer_view->return(BASE_URL, "Volver a inicio");
+            $this->trainer_view->return("home", "Volver a inicio");
         }
-        header('Location: ' . BASE_URL . "trainer-information/".$trainerID );            
+                    
     }
     
     public function deleteTrainer($trainerID){
