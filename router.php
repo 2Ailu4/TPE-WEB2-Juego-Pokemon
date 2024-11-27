@@ -64,6 +64,7 @@ switch($params[0]){
         break;
     case "showUpdateItemsCategories":
         sessionAuthMiddleware($res);
+        sessionAuthFirewall($res);
         $controller = new userController($res);
         $controller->showUpdateItemsCategories();
         break;

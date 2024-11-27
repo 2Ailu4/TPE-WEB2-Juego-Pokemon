@@ -62,7 +62,7 @@ class pokemonController{
                 if($idTrainer === "NULL"){
                     $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight, $imgTemp,null,$imgTemp);
                 }else{
-                    var_dump("POKEEEEEEEEEEEEE   ",$imgTemp);
+                    // var_dump("POKEEEEEEEEEEEEE   ",$imgTemp);
                     $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight, $imgTemp, $idTrainer,$imgTemp);
                 }
             }else{  //si el nombre o el tipo NO coinciden
@@ -121,6 +121,9 @@ class pokemonController{
     public function updatePokemon($id_Pokemon){
         if(isset($_POST)){  
             $updateFields = $this->getUpdateFields();//Agarro todos los campos que fueron modificados, ej: ['nro_pokedex'=>'32','tipo'=>'plantita']
+            
+            // var_dump("UPDATEF]IELDSSSS", $updateFields);
+            // die();
             $this->pokemon_model->update_Pokemon($id_Pokemon, $updateFields);
         }
         $id_Trainer = $this->pokemon_model->getFkTrainerByPokemon($id_Pokemon);
@@ -136,12 +139,13 @@ class pokemonController{
     
     private function getUpdateFields(){
         $fields=[];
-        foreach ($_POST as $key => $value) {
+        foreach ($_POST as $key => $value) {   // post ? assoc array  ["pepe"=>1, "juan"=>2, "marta"=>0 ]
+                                            // 
             if ($this->isSet($value)){
                 $fields[$key]=$value;   
             }
         }
-        return $fields;
+        return $fields;///["pepe"=>1, "juan"=>2]
     }
  
 

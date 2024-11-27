@@ -8,7 +8,6 @@ class userModel{
     }
 
     public function getUserByUserNameOrMail($user){
-        echo "HOLI :".$user;
         $query = $this->db->prepare('SELECT * FROM admin_user WHERE (email= :user OR nombre_usuario = :user)');
         $query->execute([':user'=>$user]);
 

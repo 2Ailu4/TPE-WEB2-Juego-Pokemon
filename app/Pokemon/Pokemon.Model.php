@@ -185,10 +185,10 @@ class pokemonModel{
                     $this->updateNroNameType_By_ID($id_Pokemon, $updateFields['nro_pokedex'], $updateFields['nombre'], $pokemonByNroPokedex->tipo); //(WHERE id)
                     $nro_pokedex_for_update_Type = $updateFields['nro_pokedex'];
                 }
-                else{  //existen el nro y el nombre pero estos no coinciden
+                else{  //existen el nro y el nombre pero estos no coinciden (si falla acrualiza solo los campos validos que modifico)
                     echo "No es posible actualizar el nombre del pokemon ".$updateFields['nombre'].", ya que el nombre asociado a Nro_Pokedex: ".$updateFields['nro_pokedex']." cuenta con otro nombre";
                 }
-            }else{//ninguno de los dos existe en la db
+            }else{  //el nuevo nomnbre y nro no existen en la db === no hay conflicto actualizo de una
                 if(!($this->existsInDB($pokemonByName)) && !($this->existsInDB($pokemonByNroPokedex))){  
                     $this->updateNroNameType_By_ID($id_Pokemon, $updateFields['nro_pokedex'], $updateFields['nombre'], $pokemon->tipo);  //(WHERE id)
                     $nro_pokedex_for_update_Type = $updateFields['nro_pokedex'];
@@ -331,6 +331,6 @@ class pokemonModel{
         $query = $this->db->prepare("UPDATE pokemon
                                         SET  $updateParams 
                                         WHERE $whereParams");                           
-        $query->execute($ASSOC_Array); 
+        $query->execute($ASSOC_Array); //$this->update($fields['SET_params'], $whereParams, $ASSOC_Array);
     }
 }
