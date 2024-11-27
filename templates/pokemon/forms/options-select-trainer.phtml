@@ -4,7 +4,7 @@ foreach($trainers as $trainer){
     $trainer_to_update= '';
     if (isset($name_trainer)){
         if ($trainer->nombre_entrenador === $name_trainer){
-                $trainer_to_update = "selected = 'true'";
+                $trainer_to_update = "selected = 'true'";   //al actualizar quiero que el option del formulario se complete con el nombre del entrenador asociado a ese pokemon que quiero modificar
         }
     }?>
         <option <?=$trainer_to_update?> value="<?=htmlspecialchars($trainer->id_entrenador)?>"> <?=htmlspecialchars($trainer->nombre_entrenador)?> </option> <?php

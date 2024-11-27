@@ -45,8 +45,8 @@ class pokemonController{
         $namePokemon = $_POST['nombre'];
         $typePokemon = $_POST['tipo'];
         $weight = $_POST['peso'];
-         
-        if (! isSet($nroPokedex) || ! isSet($namePokemon) || ! isSet($typePokemon) || ! isSet($weight)){
+        
+        if (! $this->isSet($nroPokedex) || ! $this->isSet($namePokemon) || ! $this->isSet($typePokemon) || ! $this->isSet($weight)){
             $this->pokemon_view->showAlert("Error: Debes completar todos los campos del formulario!!");
             $this->pokemon_view->return("add-pokemon", "Volver a intentar <br>");
             $this->pokemon_view->return(BASE_URL, "Volver a inicio");
@@ -62,7 +62,6 @@ class pokemonController{
                 if($idTrainer === "NULL"){
                     $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight, $imgTemp,null,$imgTemp);
                 }else{
-                    // var_dump("POKEEEEEEEEEEEEE   ",$imgTemp);
                     $id_New_Pokemon = $this->pokemon_model->insertPokemon($nroPokedex, $namePokemon, $typePokemon, $weight, $imgTemp, $idTrainer,$imgTemp);
                 }
             }else{  //si el nombre o el tipo NO coinciden
@@ -112,7 +111,7 @@ class pokemonController{
             $name_trainer = $Trainer->nombre_entrenador;
         }
         $datetime = date("Y-m-d H:i:s", strtotime($pokemon->fecha_captura));
-        $trainers = $this->pokemon_model->getTrainersIdName();
+        $trainers = $this->pokemon_model->getTrainersIdName();  //recupero todos los trainers para armar el select options
 
         $this->pokemon_view->showFormUpdatePokemon($trainers, $id_Pokemon, $pokemon->nro_pokedex, $pokemon->nombre, $pokemon->tipo, $datetime, $pokemon->peso, $name_trainer);
     }
@@ -121,9 +120,6 @@ class pokemonController{
     public function updatePokemon($id_Pokemon){
         if(isset($_POST)){  
             $updateFields = $this->getUpdateFields();//Agarro todos los campos que fueron modificados, ej: ['nro_pokedex'=>'32','tipo'=>'plantita']
-            
-            // var_dump("UPDATEF]IELDSSSS", $updateFields);
-            // die();
             $this->pokemon_model->update_Pokemon($id_Pokemon, $updateFields);
         }
         $id_Trainer = $this->pokemon_model->getFkTrainerByPokemon($id_Pokemon);

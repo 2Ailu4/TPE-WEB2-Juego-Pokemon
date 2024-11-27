@@ -111,7 +111,6 @@ class trainerModel{
 
     public function updateTrainer($updateFields, $imagen = NULL){
         $pathImg=null;
-         
         if ($imagen){
             $pathImg = $this->uploadImage($imagen);
             $updateFields['imagen']=$pathImg;

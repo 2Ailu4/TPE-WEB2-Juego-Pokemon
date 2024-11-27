@@ -15,9 +15,9 @@ class pokemonModel{
     }
 
     function createDatabase() {
-            $query = "CREATE DATABASE IF NOT EXISTS " . MYSQL_DB . " DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci";
-            $this->db->exec($query);
-        }
+        $query = "CREATE DATABASE IF NOT EXISTS " . MYSQL_DB . " DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci";
+        $this->db->exec($query);
+    }
 
     private function _deploy() {
         $query = $this->db->query('SHOW TABLES');
@@ -144,9 +144,8 @@ class pokemonModel{
     private function uploadImage($imgTemp, $nombre_pokemon, $update = false, $relativePath = "images/pokemons/") {
  
         $extension = strtolower(pathinfo($_FILES['input_name']['name'], PATHINFO_EXTENSION));
-        //var_dump('extention:  ', $extension);
-        ?><br><?php
-        $filePath = $relativePath . $nombre_pokemon . "." . $extension;
+        
+        $filePath = $relativePath . $nombre_pokemon . "." . $extension; //ruta donde se va a guardar la img
         
         if($update){// elimina la imagen de pokemon 
             $this->deleteImage($filePath); 
@@ -269,7 +268,6 @@ class pokemonModel{
         $imgTemp = $_FILES['input_name']['tmp_name']; 
         
         if(!empty($imgTemp)){
-            var_dump("dasdsadsa", $imgTemp);
             $pathImg = $this->uploadImage($imgTemp,$pokemon->nombre);
             $updateFields['imagen_pokemon'] = $pathImg;
             $update_attributes= $this->add_existent_keys(['peso','fecha_captura', 'imagen_pokemon', 'FK_id_entrenador'],$updateFields);

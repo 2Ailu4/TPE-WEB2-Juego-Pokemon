@@ -77,15 +77,15 @@ class trainerController{
         if(! $this->verifyParams($updateFields) ){ 
             die();
         }
-        if(isSet($updateFields)) { 
+        // if($this->isSet($updateFields)) { //// modifivcar TODO ROTO
             if ($this->imageUploaded()) {
                 $imgTemp = $_FILES['input_name']['tmp_name'];             
                 $this->trainer_model->insertTrainer($updateFields,$imgTemp);               
             }else
                 $this->trainer_model->insertTrainer($updateFields);           
-        }else{
-            $this->trainer_view->showMessage('Debes modificar al menos un campo para poder actualizar tu [perfil / al entrenador: ]');
-        }        
+        // }else{
+        //     $this->trainer_view->showMessage('Debes modificar al menos un campo para poder actualizar tu [perfil / al entrenador: ]');
+        // }        
         header('Location: ' . BASE_URL . "trainer-list" );
     }
 
@@ -118,7 +118,6 @@ class trainerController{
     public function deleteTrainer($trainerID){
         $this->trainer_model->deleteTrainer($trainerID);
         $this->trainer_view->showMessage('Tu usuario ah sido eliminado exitosamente');
-        $this->trainer_view->return("trainer-list/" ,"Lista de Entrenadores");
         header('Location: ' . BASE_URL . "trainer-list");
     }
 

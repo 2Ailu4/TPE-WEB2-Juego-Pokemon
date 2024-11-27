@@ -1,20 +1,26 @@
-<?php 
-foreach($pokemons as $pokemon){ ?>
-    <div class="accordion accordion-flush">
-
-      <div class="accordion-item">
-        <h2 class="accordion-header" >
-          <button class="accordion-button collapsed tipografia" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                <?=htmlspecialchars($pokemon->nombre)?>
-          </button>
-        </h2>
-        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body">
-            <?php require 'pokemon-detail.phtml';?>
-        </div>
+<div class="accordion accordion-flush" id="accordionFlushExample">
+  <?php foreach($pokemons as $index => $pokemon): ?>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed tipografia" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#flush-collapse-<?= $index ?>" 
+                aria-expanded="false" 
+                aria-controls="flush-collapse-<?= $index ?>">
+          <?= htmlspecialchars($pokemon->nombre) ?>
+        </button>
+      </h2>
+      <div id="flush-collapse-<?= $index ?>" 
+           class="accordion-collapse collapse" 
+           aria-labelledby="flush-heading-<?= $index ?>" 
+           data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+          <?php require 'pokemon-detail.phtml'; ?>
         </div>
       </div>
     </div>
-<?php }
-  
+  <?php endforeach; ?>
+</div>
+
 

@@ -24,7 +24,8 @@ switch($params[0]){
         $controller->showHome();
         break;
     case "listPokemons":
-        $pokemonController = new pokemonController();
+        sessionAuthMiddleware($res); 
+        $pokemonController = new pokemonController($res);
         $pokemonController->listPokemons();
         break;
     case "add-pokemon":
@@ -59,7 +60,7 @@ switch($params[0]){
         break;
     case "login":
         sessionAuthMiddleware($res);
-        $controller = new userController();
+        $controller = new userController($res);
         $controller->login();
         break;
     case "showUpdateItemsCategories":
@@ -123,7 +124,7 @@ switch($params[0]){
         break;
 
     case "close-session":
-        $userController = new userController($res);
+        $userController = new userController();
         $userController->closeSession();
         break;
     default:
