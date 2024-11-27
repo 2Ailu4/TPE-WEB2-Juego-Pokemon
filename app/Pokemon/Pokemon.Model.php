@@ -1,5 +1,4 @@
 <?php 
-// require_once '../../config/config.php';
 require_once './config/config.php';
 class pokemonModel{
     protected $db;
@@ -7,12 +6,18 @@ class pokemonModel{
     public function __construct(){
         
         $this->db = new PDO(
-            "mysql:host=".MYSQL_HOST .
-            ";dbname=".MYSQL_DB.";charset=utf8", 
-            MYSQL_USER, MYSQL_PASS);
-        $this->_deploy();
-            
+            "mysql:host=".MYSQL_HOST .";charset=utf8", MYSQL_USER, MYSQL_PASS);
+        if ($this->db) {
+            $this->createDatabase();
+            $this->db->exec("USE " . MYSQL_DB);
+            $this->_deploy();
+        }
     }
+
+    function createDatabase() {
+            $query = "CREATE DATABASE IF NOT EXISTS " . MYSQL_DB . " DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci";
+            $this->db->exec($query);
+        }
 
     private function _deploy() {
         $query = $this->db->query('SHOW TABLES');

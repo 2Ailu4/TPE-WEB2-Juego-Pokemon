@@ -62,7 +62,7 @@ class trainerController{
     }
 
     private function verifyParams($updateFields){
-        if(!isSet($updateFields['nombre_entrenador']) || !isSet($updateFields['ciudad_origen']) || !isSet($updateFields['nivel_entrenador']) || !isSet($updateFields['cant_medallas']) || !isSet($updateFields['descripcion']) ){
+        if(!$this->isSet($updateFields['nombre_entrenador']) || !$this->isSet($updateFields['ciudad_origen']) || !$this->isSet($updateFields['nivel_entrenador']) || !$this->isSet($updateFields['cant_medallas']) ){
             $this->trainer_view->showMessage("Error: Debes completar todos los campos del formulario!!");
             $this->trainer_view->return("register-trainer", "Volver a intentar <br>");
             $this->trainer_view->return("home", "Volver a inicio");
